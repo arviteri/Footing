@@ -167,7 +167,8 @@ module.exports = function(config) {
 
 			const email = user.getEmail();
 			const password = user.getPassword(); // Password hash.
-			const _query = "INSERT INTO Users (email, password) VALUES (?, ?)";
+			const userTableName = config.configurations.mysql.tables.users;
+			const _query = "INSERT INTO "+userTableName+" (email, password) VALUES (?, ?)";
 
 			let error = new JSONResponse(400);
 			sqlDB.query(_query, [email, password], function(err, rows, fields) {

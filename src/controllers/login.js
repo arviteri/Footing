@@ -95,7 +95,8 @@ module.exports = function(config) {
 		return new Promise(function(resolve, reject) {
 
 			const email = data.email;
-			const _query = "SELECT id, email, password FROM Users WHERE email = ?";
+			const userTableName = config.configurations.mysql.tables.users;
+			const _query = "SELECT id, email, password FROM "+userTableName+" WHERE email = ?";
 
 			let error = new JSONResponse(401);
 			sqlDB.query(_query, [email], function(err, rows, fields) {

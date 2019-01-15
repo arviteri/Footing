@@ -24,7 +24,7 @@ module.exports = function(config, app, routes) {
 	/////     PUBLIC TEST ROUTE - W CSRUF    /////
 	/////////////////////////////////////////////
 
-	routes.protected.get('/test/csrf', function(req, res) {
+	routes.protected.post('/test/csrf', function(req, res) {
 		return res.status(200).json({"200":"OK"});
 	});
 

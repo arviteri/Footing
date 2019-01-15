@@ -35,8 +35,8 @@ const JWT_SECRET = "SECRET";
 const mongoDBUrl = 'mongodb://localhost/test_db';
 const dbHost = 'localhost';
 const dbUser = 'root';
-const dbName = 'test_db'; // 
-const userTable = 'Users'; // MIGHT NOT NEED THIS.
+const dbName = 'test_db';
+const userTable = 'Users'; // Default name for table that stores users (can change).
 
 
 /* Database connections. */
