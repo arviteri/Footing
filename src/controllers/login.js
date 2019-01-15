@@ -61,8 +61,14 @@ module.exports = function(config) {
 	//////       HELPER  FUNCTIONS       /////////
 	/////////////////////////////////////////////
 
+	/**
+	 * Verifies that the request body contains all necessary inputs.
+	 * @argument {object} data - request body of the signup request.
+	 */
 	const verifyInputRequirements = function(data) {
 		return new Promise(function(resolve, reject) {
+
+			/* For security purposes, may want to strip data to prevent XSS and SQL Injection. */
 
 			const email = data.email;
 			const password = data.password;
