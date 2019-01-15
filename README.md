@@ -6,7 +6,7 @@ Routes for signing up and logging in users are already defined. Session manageme
 
 Backbone's purpose is to enable developers to create APIs without needing to implenent an authentication system each time. 
 
-**DISCLAIMER:** Backbone is not setup to protect XSS or SQL Injection attacks. Comments are available in suggested locations for cleaning input data to prevent such attacks.
+**DISCLAIMER:** Backbone is not yet designed to protect XSS or SQL Injection attacks. Comments are available in suggested locations for cleaning input data to prevent such attacks.
 
 ## Setup Requirements
   - MongoDB database (used for sessions).
