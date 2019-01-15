@@ -26,7 +26,7 @@ const dbName = 'test_db';
 **2. Dependencies:** CD into the root of the cloned directory and run the command, `npm install` to install the dependencies.
 
 ## Starting The Server
-**1. Databases:** Make sure the MongoDB and MySQL databases have been started and are running.
+**1. Databases:** Make sure the MongoDB and MySQL databases have been started and are running.  
 **2. Running the project:** CD into the root of the cloned directory and run `node src/app.js`
 
 ## Defining Routes
