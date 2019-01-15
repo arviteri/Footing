@@ -1,0 +1,27 @@
+{
+  "name": "backbone",
+  "version": "1.0.0",
+  "description": "A foundation for developing APIs with Express and Node.js",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Viteri",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "csrf": "^3.0.6",
+    "csurf": "^1.9.0",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.4",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0",
+    "uid-generator": "^1.0.0"
+  }
+}
