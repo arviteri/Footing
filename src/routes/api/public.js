@@ -17,7 +17,7 @@ module.exports = function(config, app, routes) {
 	/* Define public routes that do not require CSRF protection below. */
 	/** Example...
 	
-		routes.unprotected.post('/auth_without_CSRF', function(res, req) {
+		routes.unprotected.post('/public_without_CSRF', function(res, req) {
 			
 			return res.status(200).json({"200":"Unathenticated"});
 		});
@@ -33,7 +33,7 @@ module.exports = function(config, app, routes) {
 	/* Define public routes that require CSRF protection below. */
 	/** Example...
 	
-		routes.protected.post('/auth_without_CSRF', function(res, req) {
+		routes.protected.post('/public_with_CSRF', function(res, req) {
 			
 			return res.status(200).json({"200":"Unathenticated"});
 		});
