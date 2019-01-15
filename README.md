@@ -69,3 +69,27 @@ routes.protected.post('/auth_with_CSRF', RequestAuthethenticator, function(res, 
 Routes that are private will require a Bearer token in the authentication header of the request. Upon a successful login request, an authentication token will be stored as a cookie, and also returned in the form of a JSON response. The token is in the form of a JWT, and it's secret is a unique ID that is stored in the user's session. The authentication system protects routes by first verifying that the token in the authentication header matches that of the cookie. Secondly, the system verifies the token with the secret that is stored in the user's session.
 
 It's important to note that upon a successful login request, the user's session is regenerated and a new CSRF token will be returned. The CSRF token used to make the login request will no longer be valid.
+
+## Example Requests
+**Obtaining CSRF Token**
+`GET: http://localhost:port/c/tkn`
+
+**Sign Up**
+`POST: http://localhost:port/signup`
+~~~
+{
+	"email": "test@example.com",
+	"password": "password",
+	"confirmPassword": "password",
+	"_csrf": "N2MbkPwA-3cJSavajIlsW_61OPZ_5uoQr6QU"
+}
+~~~
+**Login**
+`POST: http://localhost:port/login`
+~~~
+{
+	"email": "test@example.com",
+	"password": "password",
+	"_csrf": "N2MbkPwA-3cJSavajIlsW_61OPZ_5uoQr6QU"
+}
+~~~
