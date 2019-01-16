@@ -2,7 +2,7 @@
 
 Backbone is a foundation for developing APIs using Express with Node.Js. The project is setup in a way to make it easy for developers to build secure APIs with minimal setup. Backbone provides the ability to define public or secure API routes with or without CSRF protection. 
 
-Routes for signing up and logging in users are already defined. Session management and authentication managment has been implenented as well. 
+Routes for signing up and logging in users are already defined. Session management and authentication management have been implemented as well. 
 
 Backbone's purpose is to enable developers to create APIs without needing to implement an authentication system. 
 
