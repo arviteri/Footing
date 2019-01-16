@@ -4,7 +4,7 @@ Backbone is a foundation for developing APIs using Express with Node.Js. The pro
 
 Routes for signing up and logging in users are already defined. Session management and authentication managment has been implenented as well. 
 
-Backbone's purpose is to enable developers to create APIs without needing to implenent an authentication system each time. 
+Backbone's purpose is to enable developers to create APIs without needing to implement an authentication system. 
 
 **DISCLAIMER:** Backbone is not yet designed to protect XSS or SQL Injection attacks. Comments are available in suggested locations for cleaning input data to prevent such attacks.
 
