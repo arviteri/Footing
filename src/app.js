@@ -40,7 +40,7 @@ app.listen(config.server.port, config.server.ip, (err) => {
 	}
 
 	// Log server details.
-	console.log('\u1693 BACKBONE.');
+	console.log('\u27F0 FOOTING.');
 	console.log('PORT: ' + config.server.port);
 
 	// Test MySQL database connection.

@@ -23,8 +23,8 @@ const UIDGenerator = require('uid-generator');
 
 
 /* Environment Variables. */
-const SERVER_PORT = 80;
-const SERVER_IP = "192.168.1.3";
+const SERVER_PORT = 3030;
+const SERVER_IP = "localhost";
 const SERVER_FUNCTIONS = require('./server.js')();
 const BCRYPT_SALT_ROUNDS = 14;
 const CSURF_SECRET = "SECRET";
