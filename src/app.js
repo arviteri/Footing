@@ -1,5 +1,5 @@
 /**
- * BACKBONE.
+ * FOOTING.
  * Namespace: src/
  * January 12, 2019
  * LICENSE: MIT
@@ -32,7 +32,7 @@ require('./routes/api/test.js')(config, app, routes);
 /////////////////////////////////////////////////////////
 
 // Serve application.
-app.listen(config.server.port, (err) => {
+app.listen(config.server.port, config.server.ip, (err) => {
 	// Kill if any errors occur. 
 	if (err) {
 		console.log('FATAL ERROR: ' + err);

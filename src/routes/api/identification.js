@@ -1,5 +1,5 @@
 /**
- * BACKBONE.
+ * FOOTING.
  * Namespace: src/routes/api
  * January 12, 2019
  * LICENSE: MIT

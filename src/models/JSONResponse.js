@@ -1,5 +1,5 @@
 /**
- * BACKBONE.
+ * FOOTING.
  * Namespace: src/models
  * January 14, 2019
  * LICENSE: MIT

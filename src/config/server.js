@@ -1,5 +1,5 @@
 /**
- * BACKBONE.
+ * FOOTING.
  * Namespace: src/config
  * January 14, 2019
  * LICENSE: MIT

@@ -1,5 +1,5 @@
 {
-  "name": "backbone",
+  "name": "footing",
   "version": "1.0.0",
   "description": "A foundation for developing APIs with Express and Node.js",
   "main": "src/app.js",
