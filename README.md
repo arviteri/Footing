@@ -6,12 +6,16 @@ Routes for signing up and logging in users are already defined. Session manageme
 
 Backbone's purpose is to enable developers to create REST APIs without needing to implement an authentication system. 
 
-**DISCLAIMER:** Backbone is not yet designed with protection against XSS or SQL Injection attacks. Comments are available in suggested locations for cleaning input data to prevent such attacks.
+**DISCLAIMER:** Backbone is not yet designed with protection against XSS or SQL Injection attacks. Comments are available in suggested locations for cleaning input data to prevent such attacks.  
+
+<br />
 
 ## Setup Requirements
   - MongoDB database (used for sessions).
   - MySQL database (used for application data).
   - Node.Js
+
+<br />
 
 ## Setup
 **1. Databases:** Database configuration can be set up in the `src/config/config.js` file. The default database setup uses the following values...
@@ -25,15 +29,19 @@ const dbName = 'test_db';
 ```
 **2. Dependencies:** CD into the root of the cloned directory and run the command, `npm install` to install the dependencies.
 
+<br />
+
 ## Starting The Server
 **1. Databases:** Make sure the MongoDB and MySQL databases have been started and are running.  
 **2. Running the project:** CD into the root of the cloned directory and run `node src/app.js`
 
+<br />
+
 ## Defining Routes
 
-Predefined routes for signing up and logging in users can be found in the `src/api/routes/identification.js` file.
+Predefined routes for signing up and logging in users can be found in the `src/api/routes/identification.js` file.  
 
-**Public Routes:**
+### Public Routes
 Public routes can be defined in the `src/api/routes/public.js` file. Below are examples of defining routes that do not need user authentication.
 
 **Example 1:** Defining public route that does not require CSRF protection.
@@ -49,7 +57,7 @@ routes.protected.post('/public_with_CSRF', function(res, req) {
 });
 ~~~
 
-**Private Routes:**
+### Private Routes
 Public routes can be defined in the `src/api/routes/private.js` file. Below are examples of defining routes that need authentication.
 
 **Example 1:** Defining private route that does not require CSRF protection.
@@ -65,10 +73,14 @@ routes.protected.post('/auth_with_CSRF', RequestAuthethenticator, function(res, 
 });
 ~~~
 
+<br />
+
 ## The Authentication System
 Routes that are private will require a Bearer token in the authentication header of the request. Upon a successful login request, an authentication token will be stored as a cookie, and also returned in the form of a JSON response. The token is in the form of a JWT, and it's secret is a unique ID that is stored in the user's session. The authentication system protects routes by first verifying that the token in the authentication header matches that of the cookie. Secondly, the system verifies the token with the secret that is stored in the user's session.
 
 It's important to note that upon a successful login request, the user's session is regenerated and a new CSRF token will be returned. The CSRF token used to make the login request will no longer be valid.
+
+<br />
 
 ## Example Requests
 **Obtaining CSRF Token**
