@@ -1,6 +1,6 @@
 # Backbone
 
-Backbone is a foundation for developing REST APIs using Express with Node.Js. The project is setup in a way to make it easy for developers to build secure REST APIs with minimal setup. Backbone provides the ability to define public or secure API routes with or without CSRF protection. 
+Backbone is a foundation for developing REST APIs using Express with Node.Js. The project is designed in a way to make it easy for developers to build secure REST APIs with minimal setup. Backbone provides the ability to define public or secure API routes with or without CSRF protection. 
 
 Routes for signing up and logging in users are already defined. Session management and authentication management have been implemented as well. 
 
