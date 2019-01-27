@@ -35,6 +35,7 @@ const JWT_SECRET = "SECRET";
 /* DATABASE CONFIG */
 const mongoDBUrl = 'mongodb://localhost/test_db';
 const dbHost = 'localhost';
+const dbPort = 3306;
 const dbUser = 'root';
 const dbName = 'test_db';
 const userTable = 'Users'; // Default name for table that stores users (can change).
@@ -44,6 +45,7 @@ const userTable = 'Users'; // Default name for table that stores users (can chan
 const mongoDatabase = mongoose.createConnection(mongoDBUrl, { useNewUrlParser: true });
 const sqlDB = mysql.createConnection({
 	host: dbHost,
+	port: dbPort,
 	user: dbUser,
 	database: dbName
 });
