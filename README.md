@@ -11,7 +11,12 @@ Footings's purpose is to enable developers to create REST APIs without needing t
 <br />
 
 ## Security 
-**SQL Injection:** Footing already includes standard SQL Injection prevention techniques for predefined routes such as `/signup` and `/login`. __Any additional routes that modify the MySQL database will need to be protected by the developer.__
+**SQL Injection:** Footing already includes standard SQL Injection prevention techniques for predefined routes such as `/signup` and `/login`. __Any additional routes that modify the MySQL database will need to be protected by the developer.__ 
+
+<br/>
+
+**XSS:** It is the developer's responsibility to protect ALL routes from XSS attacks. Footing does not currently sanitize ANY input data.
+
 
 <br />
 
