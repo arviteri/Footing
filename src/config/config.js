@@ -37,6 +37,7 @@ const mongoDBUrl = 'mongodb://localhost/test_db';
 const dbHost = 'localhost';
 const dbPort = 3306;
 const dbUser = 'root';
+const dbPassword = '';
 const dbName = 'test_db';
 const userTable = 'Users'; // Default name for table that stores users (can change).
 
@@ -47,6 +48,7 @@ const sqlDB = mysql.createConnection({
 	host: dbHost,
 	port: dbPort,
 	user: dbUser,
+	password: dbPassword,
 	database: dbName
 });
 
