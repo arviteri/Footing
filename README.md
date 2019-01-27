@@ -6,7 +6,12 @@ Routes for signing up and logging in users are already defined. Session manageme
 
 Footings's purpose is to enable developers to create REST APIs without needing to implement an authentication system. 
 
-**DISCLAIMER:** Footing is not yet designed with protection against XSS or SQL Injection attacks. Comments are available in suggested locations for cleaning input data to prevent such attacks.  
+**DISCLAIMER:** Footing is not yet designed with protection against XSS attacks. Comments are available in suggested locations for sanitizing input data to prevent such attacks.  
+
+<br />
+
+## Security 
+**SQL Injection:** Footing already includes standard SQL Injection prevention techniques for predefined routes such as `/signup` and `/login`. __Any additional routes that modify the MySQL database will need to be protected by the developer.__
 
 <br />
 
