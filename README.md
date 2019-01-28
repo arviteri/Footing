@@ -1,5 +1,5 @@
 
-<img height="50" src="https://footing.herokuapp.com/logo.png">
+<img height="75" src="https://footing.herokuapp.com/logo.png">
 <p>
 	<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
 </p>
