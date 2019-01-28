@@ -8,7 +8,7 @@
 
 
 // Configure environment variables.
-const ENV_PATH = '../.env';
+const ENV_PATH = './.env';
 require('dotenv').config({path: ENV_PATH});
 
 // Create Application variables.
