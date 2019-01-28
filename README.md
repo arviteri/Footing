@@ -28,24 +28,9 @@ Footings's purpose is to enable developers to create REST APIs without needing t
 <br />
 
 ## Setup
-**1. Databases:** Database configuration can be set up in the `src/config/config.js` file. The default database setup uses the following values...
+**1. Environment Variables:** The `src/config/config.js` takes advantage of the `dotenv` package and uses the `.env` file in the root of the project to manage configurations. Copy the `.env.dist` file and rename it to `.env`. You can then manage all environment variables in the `.env` file.
 
-```
-/* DATABASE CONFIG */
-const mongoDBUrl = 'mongodb://localhost/test_db';
-const dbHost = 'localhost';
-const dbUser = 'root';
-const dbName = 'test_db';
-```
-**2. Host and Port:** The host and port that the server is running on can be changed in the `src/config/config.js` file. The default host and port setup uses the following values...
-```
-/* Environment Variables. */
-const SERVER_PORT = 3030;
-const SERVER_IP = "localhost";
-```
-**NOTICE:** Running the project on your local IP using port 80 will require superuser privileges. If you decide to use your local IP and port 80, run the server using `sudo node src/app.js` or `su node src/app.js`  
-
-**3. Dependencies:** CD into the root of the cloned directory and run the command, `npm install` to install the dependencies.
+**2. Dependencies:** CD into the root of the cloned directory and run the command, `npm install` to install the dependencies.
 
 <br />
 
