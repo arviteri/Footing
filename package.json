@@ -1,6 +1,6 @@
 {
   "name": "footing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A foundation for developing APIs with Express and Node.js",
   "main": "src/app.js",
   "scripts": {
