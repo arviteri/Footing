@@ -10,8 +10,8 @@ const JSONResponse = require('../../models/JSONResponse');
 
 module.exports = function(config) {
 
-	const csurf = config.dependencies.csurf();
-	const csrf_protection = config.configurations.csurf.protection;
+	const csurf_options = config.configurations.csurf.settings;
+	const csurf = config.dependencies.csurf(csurf_options);
 
 	const CSRFProtection = function(req, res, next) {
 		const ip = req.ip;

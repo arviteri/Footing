@@ -47,17 +47,15 @@ module.exports = function(config) {
 
 				resolve(resData);
 			}, function(err) {
-
-				const header = "USER_ERROR";
-				ServerLog(ip, header, err);
-
-				reject(err);
-			}).catch(function(fErr) {
-				const header = "SERVER_ERROR";
-				ServerLog(ip, header, fErr);
-
-				const responseError = new JSONResponse(500, "An error occured during authorization.");
-				reject(responseError);
+				const status = err.statusCode;
+				if (status) {
+					ServerLog(ip, "USER_ERROR", err.message);
+					reject(err);
+				} else {
+					const responseError = new JSONResponse(500, "An error occured during authorization.");
+					ServerLog(ip, "SERVER_ERROR", err.message);
+					reject(responseError);
+				}
 			});
 
 		});
@@ -83,7 +81,7 @@ module.exports = function(config) {
 				const header = "USER_ERROR";
 				const errMessage = "Invalid authentication token.";
 				ServerLog(ip, header, errMessage, true);
-				reject(new JSONResponse(401, errMessage));
+				return reject(new JSONResponse(401, errMessage));
 			}
 
 			jwt.verify(authToken, secret, function(err, decoded) {

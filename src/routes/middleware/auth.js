@@ -13,7 +13,7 @@ module.exports = function(config) {
 	// Initialize authentication handler.
 	const authHandler = require('../../controllers/auth.js')(config);
 	// Define authentication error response.
-	const authError = new JSONResponse(401, "Unathenticated request.");
+	const authError = new JSONResponse(401, "Unathenticated.");
 
 	const RequestAuthenticator = function(req, res, next) {
 
@@ -23,13 +23,10 @@ module.exports = function(config) {
 
 			if (authenticated === true) {
 				next();
-			} else {
-				ServerLog(ip, "USER_ERROR", "Unathenticated request.", true);
-				return res.status(401).json(authError);
 			}
 
 		}, function(err) {
-			ServerLog(ip, "USER_ERROR", err, true);
+			ServerLog(ip, "USER_ERROR", "Unathenticated request.", true);
 			res.status(401).json(authError);
 		});
 	}

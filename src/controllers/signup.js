@@ -43,24 +43,15 @@ module.exports = function(config) {
 			}).then(function(data) {
 				resolve(data);
 			}, function(err) {
-				
-				const header = "USER_ERROR";
-				const jsonMessage = err.message;
-
-				if (jsonMessage) {
-					ServerLog(ip, header, jsonMessage);
+				const status = err.statusCode;
+				if (status) {
+					ServerLog(ip, "USER_ERROR", err.message);
+					reject(err);
 				} else {
-					ServerLog(ip, header, err);
+					const responseError = new JSONResponse(500, "An error occured during registration.");
+					ServerLog(ip, "SERVER_ERROR", err.message);
+					reject(responseError);
 				}
-
-				reject(err);
-			}).catch(function(fErr) {
-				
-				const header = "SERVER_ERROR";
-				ServerLog(ip, header, fErr);
-
-				const responseError = new JSONResponse(500, "An error occured during registration.");
-				reject(responseError);
 			});
 		});
 	}
@@ -137,7 +128,7 @@ module.exports = function(config) {
 	const encryptPassword = function(userData, password) {
 		return new Promise(function(resolve, reject) {
 
-			const saltRounds = config.configurations.bcrypt.saltRounds;
+			const saltRounds = parseInt(config.configurations.bcrypt.saltRounds);
 
 			bcrypt.genSalt(saltRounds, function(err, salt) {
 				
@@ -174,8 +165,12 @@ module.exports = function(config) {
 			sqlDB.query(_query, [email, password], function(err, rows, fields) {
 				
 				if (err) {
-					error.setMessage("Email is already registered.");
-					reject(error);
+					if (err.code === "ER_DUP_ENTRY") {
+						error.setMessage("Email is already registered."); // This is a default response. There may be other errors that occured.
+						reject(error);
+					} else {
+						reject(err);
+					}
 				}
 
 				resolve(user);

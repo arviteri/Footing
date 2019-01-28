@@ -35,23 +35,15 @@ module.exports = function(config) {
 			}).then(function(user) {	
 				resolve(user);
 			}, function(err) {
-
-				const header = "USER_ERROR";
-				const jsonMessage = err.message;
-
-				if (jsonMessage) {
-					ServerLog(ip, header, jsonMessage);
+				const status = err.statusCode;
+				if (status) {
+					ServerLog(ip, "USER_ERROR", err.message);
+					reject(err);
 				} else {
-					ServerLog(ip, header, err);
+					const responseError = new JSONResponse(500, "An error occured during authentication.");
+					ServerLog(ip, "SERVER_ERROR", err.message);
+					reject(responseError);
 				}
-
-				reject(err);
-			}).catch(function(fErr) {
-				const header = "SERVER_ERROR";
-				ServerLog(ip, header, fErr);
-
-				const responseError = new JSONResponse(500, "An error occured during authentication.");
-				reject(responseError);
 			});
 
 		});
