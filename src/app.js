@@ -32,7 +32,7 @@ app.use(routes.protected);
 require('./routes/api/identification.js')(config, app, routes);
 require('./routes/api/public.js')(config, app, routes);
 require('./routes/api/private.js')(config, app, routes);
-require('./routes/api/test.js')(config, app, routes);
+require('./routes/api/health.js')(config, app, routes);
 /////////////////////////////////////////////////////////
 
 // Serve application.
@@ -68,3 +68,6 @@ app.listen(config.server.port, config.server.ip, (err) => {
 		console.log('SUCCESS: MongoDB connection established.');
 	});
 });
+
+// Export for testing
+module.exports = app;
