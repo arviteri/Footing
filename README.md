@@ -36,7 +36,8 @@ Footings's purpose is to enable developers to create REST APIs without needing t
 
 ## Starting The Server
 **1. Databases:** Make sure the MongoDB and MySQL databases have been started and are running.  
-**2. Running the project:** CD into the root of the cloned directory and run `node src/app.js`
+**2. Running the project:** CD into the root of the cloned directory and run `node src/app.js`.    
+**NOTICE:** Running `node app.js` from the `src` directory will cause errors. This is because of the path required by the `dotenv` package.
 
 <br />
 
