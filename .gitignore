@@ -1,2 +1,3 @@
 # IGNORE FILES BELOW
 **/node_modules
+.env
