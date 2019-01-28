@@ -4,6 +4,7 @@
   "description": "A foundation for developing APIs with Express and Node.js",
   "main": "src/app.js",
   "scripts": {
+    "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrew Viteri",
