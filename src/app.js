@@ -35,21 +35,14 @@ require('./routes/api/private.js')(config, app, routes);
 require('./routes/api/health.js')(config, app, routes);
 /////////////////////////////////////////////////////////
 
-// Serve application.
-app.listen(config.server.port, config.server.ip, (err) => {
-	// Kill if any errors occur. 
-	if (err) {
-		console.log('FATAL ERROR: ' + err);
-		return process.exit(1);
-	}
-
+const BootstrapServer = async function() {
 	// Log server details.
 	console.log('\u27F0 FOOTING.');
 	console.log('PORT: ' + config.server.port);
 
 	// Test MySQL database connection.
 	console.log('Attempting to connect to MySQL database...');
-	sqlDB.connect((err) => {
+	await sqlDB.connect((err) => {
 		if (err) {
 			console.log('ERROR - MySQL: ' + err);
 			return process.exit(1);
@@ -60,14 +53,26 @@ app.listen(config.server.port, config.server.ip, (err) => {
 	// Test MongoDB database connection.
 	const mongoURL = config.configurations.connectMongo.url;
 	console.log('Attempting to connect to MongoDB database...');
-	mongoose.connect(mongoURL, {useNewUrlParser: true}, function(err) {
+	await mongoose.connect(mongoURL, {useNewUrlParser: true}, function(err) {
 		if (err) {
 			console.log('ERROR - MongoDB: ' + err);
 			return process.exit(1);
 		}
 		console.log('SUCCESS: MongoDB connection established.');
 	});
+}
+
+// Bootstrap and serve application.
+BootstrapServer().then(function() {
+	app.listen(config.server.port, (err) => {
+		// Kill if any errors occur. 
+		if (err) {
+			console.log('FATAL ERROR: ' + err);
+			return process.exit(1);
+		}
+	});
 });
+
 
 // Export for testing
 module.exports = app;

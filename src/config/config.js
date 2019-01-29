@@ -26,7 +26,6 @@ const SERVER_FUNCTIONS = require('./server.js')();
 
 /* Environment Variables. See `/.env` */
 const SERVER_PORT = process.env.PORT;
-const SERVER_IP = process.env.HOST;
 const BCRYPT_SALT_ROUNDS = process.env.BCRYPT_SALT_ROUNDS;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET; // Not used. Unique ID is generated for every auth token and is stored in the session.
@@ -100,7 +99,6 @@ module.exports = {
 	},
 	server: {
 		port: SERVER_PORT,
-		ip: SERVER_IP,
 		functions: SERVER_FUNCTIONS
 	},
 	databases: {
