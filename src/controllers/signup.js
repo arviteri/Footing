@@ -72,7 +72,7 @@ module.exports = function(config) {
 			const password = data.password;
 			const confirmPassword = data.confirmPassword;
 
-			let error = new JSONResponse(400);
+			let error = new JSONResponse(422);
 			if (!email) {
 				error.setMessage("No email provided.");
 				return reject(error);
@@ -101,7 +101,7 @@ module.exports = function(config) {
 			const password = data.password;
 			const confirmPassword = data.confirmPassword;
 
-			let error = new JSONResponse(400);
+			let error = new JSONResponse(422);
 			if (!isValidEmail(email)) { // Open for implementation.
 				error.setMessage("Invalid email address.");
 				return reject(error);
@@ -161,7 +161,7 @@ module.exports = function(config) {
 			const userTableName = config.configurations.mysql.tables.users;
 			const _query = "INSERT INTO "+userTableName+" (email, password) VALUES (?, ?)";
 
-			let error = new JSONResponse(400);
+			let error = new JSONResponse(409);
 			sqlDB.query(_query, [email, password], function(err, rows, fields) {
 				
 				if (err) {

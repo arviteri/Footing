@@ -65,7 +65,7 @@ module.exports = function(config) {
 			const email = data.email;
 			const password = data.password;
 
-			let error = new JSONResponse(400);
+			let error = new JSONResponse(422);
 			if (!email) {
 				error.setMessage("No email provided.");
 				return reject(error);
@@ -134,7 +134,7 @@ module.exports = function(config) {
 					resolve(user);
 				}
 
-				reject(new JSONResponse(401, "Invalid email or password."));
+				reject(new JSONResponse(422, "Invalid email or password."));
 
 			});
 		});

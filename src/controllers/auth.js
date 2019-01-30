@@ -77,7 +77,7 @@ module.exports = function(config) {
 			
 			const authToken = getBearerValue(authHeader); // Strip authentication token from header value.
 			const authCookieVal = req.cookies.a;
-
+			
 			if (authToken !== authCookieVal) {
 				const header = "USER_ERROR";
 				const errMessage = "Invalid authentication token.";
