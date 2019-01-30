@@ -12,6 +12,7 @@ module.exports = function(config, app, routes) {
 
  	const signupHandler = require('../../controllers/signup.js')(config);
  	const loginHandler = require('../../controllers/login.js')(config);
+ 	const deleteUHandler = require('../../controllers/deactivate.js')(config);
  	const authHandler = require('../../controllers/auth.js')(config);
  	const RequestAuthenticator = require('../middleware/auth.js')(config);
 
@@ -82,12 +83,18 @@ module.exports = function(config, app, routes) {
 
 	});
 
-
 	/**
 	 * Delete User Account
 	 * View 'src/controllers/deactivate.js' for implementation.
 	 */
 	routes.protected.post(config.routes.deleteAccount, RequestAuthenticator, function(req, res) {
-		return res.status(302).json(new JSONResponse(302, "Check back later."));
+
+		deleteUHandler.DeleteAccount(req).then(function(result) {
+			req.session.destroy(); // Incredibly important.
+			return res.status(200).json(new JSONResponse(200, "OK"));
+		}, function(err) {
+			const statusCode = err.statusCode ? err.statusCode : 400;
+			return res.status(statusCode).json(err);
+		});
 	});
 }

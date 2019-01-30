@@ -39,12 +39,13 @@ module.exports = function(config) {
 			}).then(function(token) {
 				return storeAuthenticationCookie(res, token);
 			}).then(function(token) {
+
+				req.session.user_id = user.getId(); // Store user id in session. 
 				// Store authentication token in response object.
 				const resData = {
 					id: user.getId(),
 					_a: token
 				};
-
 				resolve(resData);
 			}, function(err) {
 				const status = err.statusCode;
