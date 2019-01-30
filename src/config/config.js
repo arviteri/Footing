@@ -62,23 +62,10 @@ const session_config = {
 	resave: false
 };
 
-
+/* API ROUTES */
+const ROUTES = require('./routes.js');
 
 module.exports = {
-	dependencies: {
-		bcrypt: bcrypt,
-		bodyParser: bodyParser,
-		ConnectMongo: ConnectMongo,
-		cookieParser: cookieParser,
-		cors: cors,
-		csurf: csurf,
-		express: express,
-		expressSession: expressSession,
-		jwt: jwt,
-		mongoose: mongoose,
-		mysql: mysql,
-		UIDGenerator: UIDGenerator
-	},
 	configurations: {
 		bcrypt: {
 			saltRounds: BCRYPT_SALT_ROUNDS
@@ -101,12 +88,27 @@ module.exports = {
 			}
 		}
 	},
-	server: {
-		port: SERVER_PORT,
-		functions: SERVER_FUNCTIONS
-	},
 	databases: {
 		mongo: mongoDatabase,
 		sql: sqlDB
+	},
+	dependencies: {
+		bcrypt: bcrypt,
+		bodyParser: bodyParser,
+		ConnectMongo: ConnectMongo,
+		cookieParser: cookieParser,
+		cors: cors,
+		csurf: csurf,
+		express: express,
+		expressSession: expressSession,
+		jwt: jwt,
+		mongoose: mongoose,
+		mysql: mysql,
+		UIDGenerator: UIDGenerator
+	},
+	routes: ROUTES,
+	server: {
+		port: SERVER_PORT,
+		functions: SERVER_FUNCTIONS
 	}
 };
