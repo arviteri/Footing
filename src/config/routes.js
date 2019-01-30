@@ -16,5 +16,6 @@
 module.exports = {
  	csrf: '/c/tkn',
  	signup: '/signup',
- 	login: '/login'
+ 	login: '/login',
+ 	deleteAccount: '/delete_account'
 }

@@ -81,4 +81,13 @@ module.exports = function(config, app, routes) {
 		});
 
 	});
+
+
+	/**
+	 * Delete User Account
+	 * View 'src/controllers/deactivate.js' for implementation.
+	 */
+	routes.protected.post(config.routes.deleteAccount, RequestAuthenticator, function(req, res) {
+		return res.status(302).json(new JSONResponse(302, "Check back later."));
+	});
 }
