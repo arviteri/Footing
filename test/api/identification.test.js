@@ -29,8 +29,8 @@ beforeAll(() => {
 describe('TESTING CSRF ROUTE', () => {
     
     // Test CSRF token route. 
-    test('GET /c/tkn', async () => {
-        const response = await request.get('/c/tkn').expect('set-cookie', /connect.sid/);
+    test('GET '.concat(config.routes.csrf), async () => {
+        const response = await request.get(config.routes.csrf).expect('set-cookie', /connect.sid/);
         session_cookie = response.headers['set-cookie'];
         csrf_token = response.body._csrf;
         assert.equal(response.statusCode, 200);
@@ -48,13 +48,13 @@ describe('TESTING SIGNUP ROUTE', () => {
     };
 
     // Test w/ valid data.
-    test('POST /signup', async () => {
+    test('POST '.concat(config.routes.signup), async () => {
     	signup_data.email = 'test@example.com';
     	signup_data.password = 'A_Random_Password_321_@@';
     	signup_data.confirmPassword = 'A_Random_Password_321_@@';
     	signup_data._csrf = csrf_token;
 
-    	let req = request.post('/signup');
+    	let req = request.post(config.routes.signup);
     	req.set('Cookie', session_cookie);
     	const response = await req.send(signup_data);
    		

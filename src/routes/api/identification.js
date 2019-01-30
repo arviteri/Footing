@@ -13,6 +13,7 @@ module.exports = function(config, app, routes) {
  	const signupHandler = require('../../controllers/signup.js')(config);
  	const loginHandler = require('../../controllers/login.js')(config);
  	const authHandler = require('../../controllers/auth.js')(config);
+ 	const RequestAuthenticator = require('../middleware/auth.js')(config);
 
 	///////////////////////////////////////////////
 	////       IDENTIFICATION  ROUTES         ////
@@ -21,7 +22,7 @@ module.exports = function(config, app, routes) {
 	/**
 	 * Generate CSRF token for making requests.
 	 */
-	routes.protected.get('/c/tkn', function(req, res) {
+	routes.protected.get(config.routes.csrf, function(req, res) {
 		const token = req.csrfToken();
 	 	const resObj = {
 	 		_csrf: token
@@ -33,7 +34,7 @@ module.exports = function(config, app, routes) {
 	 * Signup
 	 * View 'src/controllers/signup.js' for signup implementation.
 	 */
-	routes.protected.post('/signup', function(req, res) {
+	routes.protected.post(config.routes.signup, function(req, res) {
 		
 		signupHandler.Signup(req).then(function(result) {
 
@@ -49,7 +50,7 @@ module.exports = function(config, app, routes) {
 	 * Login
 	 * View 'src/controllers/login.js' for login implementation.
 	 */
-	routes.protected.post('/login', function(req, res) {
+	routes.protected.post(config.routes.login, function(req, res) {
 
 		const ip = req.ip; // IP of computer requesting server. Used for logging.
 
@@ -80,5 +81,4 @@ module.exports = function(config, app, routes) {
 		});
 
 	});
-
 }
