@@ -13,8 +13,8 @@
  * the tests will still work.
  */
 
- module.exports = {
+module.exports = {
  	csrf: '/c/tkn',
  	signup: '/signup',
  	login: '/login'
- }
+}
