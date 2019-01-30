@@ -22,6 +22,7 @@ describe('TEST DATABASES', () => {
 		});
 	});
 
+	// Test MongoDB
 	test('MongoDB database', () => {
 		const mongoURL = config.configurations.connectMongo.url;
 		mongoose.connect(mongoURL, {useNewUrlParser: true}, (err) => {

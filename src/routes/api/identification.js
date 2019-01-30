@@ -37,7 +37,7 @@ module.exports = function(config, app, routes) {
 		
 		signupHandler.Signup(req).then(function(result) {
 
-			return res.status(200).json(new JSONResponse(200, "success"));
+			return res.status(200).json(new JSONResponse(200, "OK"));
 		}, function(err) {
 			const statusCode = err.statusCode ? err.statusCode : 400;
 			return res.status(statusCode).json(err);
