@@ -7,6 +7,10 @@
  */
 
 
+// Configure environment variables.
+const ENV_PATH = './.env';
+require('dotenv').config({path: ENV_PATH});
+
 /* Dependencies. */
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');

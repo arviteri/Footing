@@ -7,33 +7,14 @@
  */
 
 
-// Configure environment variables.
-const ENV_PATH = './.env';
-require('dotenv').config({path: ENV_PATH});
-
 // Create Application variables.
 const config = require('./config/config.js');
 const app = require('./config/app.js');
-const express = config.dependencies.express;
 
 // Create databases variables for initialization (MongoDB and SQL).
 const mongoose = config.dependencies.mongoose;
 const sqlDB = config.databases.sql;
 
-// Require API routes. (DO NOT MOVE ABOVE THIS POINT) /////
-var routes = {
-	unprotected: express.Router(), 	// Routes w/o CSRF protection.
-	protected: express.Router()		// Routes w/ CSRF protection.
-};
-const CSRFProtection = require('./routes/middleware/csrf.js')(config);
-routes.protected.use(CSRFProtection);
-app.use(routes.unprotected);
-app.use(routes.protected);
-require('./routes/api/identification.js')(config, app, routes);
-require('./routes/api/public.js')(config, app, routes);
-require('./routes/api/private.js')(config, app, routes);
-require('./routes/api/health.js')(config, app, routes);
-/////////////////////////////////////////////////////////
 
 const BootstrapServer = async function() {
 	// Log server details.
@@ -42,7 +23,7 @@ const BootstrapServer = async function() {
 
 	// Test MySQL database connection.
 	console.log('Attempting to connect to MySQL database...');
-	await sqlDB.connect((err) => {
+	sqlDB.connect((err) => {
 		if (err) {
 			console.log('ERROR - MySQL: ' + err);
 			return process.exit(1);
