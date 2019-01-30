@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Andrew Viteri",
   "license": "MIT",
@@ -31,5 +31,8 @@
   },
   "devDependencies": {
     "jest": "^24.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
