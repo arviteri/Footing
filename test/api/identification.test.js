@@ -30,7 +30,7 @@ const test_credentials = {
 }
 
 beforeAll(() => {
-    SetConsoleLogging(false);
+    SetConsoleLogging(false); // Function from src/config/server.js
 	sqlDB.connect();
 	mongoose.connect(mongoURL, {useNewUrlParser: true});
 });
