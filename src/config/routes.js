@@ -15,7 +15,11 @@
 
 module.exports = {
  	csrf: '/c/tkn',
- 	signup: '/signup',
+ 	deleteAccount: '/delete_account',
+ 	health: '/status',
  	login: '/login',
- 	deleteAccount: '/delete_account'
-}
+ 	signup: '/signup',
+ 	test_auth: '/test/auth', // W/O CSRF Protection.
+ 	test_auth_csrf: '/test/auth_csrf', // W CSRF Protection.
+ 	test_csrf: 'test/csrf' // CSRF Test Route.
+};

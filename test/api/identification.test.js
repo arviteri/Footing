@@ -113,7 +113,7 @@ describe('SIGNUP ROUTE', () => {
     });
 
     // Test account that has already been registered.
-    test('Signup with valid data - POST '.concat(config.routes.signup), async () => {
+    test('Signup with valid data (already registered) - POST '.concat(config.routes.signup), async () => {
         const response = await request.post(config.routes.signup)
                                     .set('Cookie', session_cookie)
                                     .send(signup_data);
