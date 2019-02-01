@@ -1,9 +1,9 @@
 
 <img height="75" src="https://i.ibb.co/WH9x7hN/logo.png">
 
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" target="_blank"></a>
 	&nbsp;
-<a href="https://travis-ci.org/arviteri/Footing"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=master" alt="Travis-CI"></a>
+<a href="https://travis-ci.org/arviteri/Footing"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=master" alt="Travis-CI" target="_blank"></a>
 	&nbsp;
 
 **!! Things have changed recently! The README is currently being updated !!** 
