@@ -5,7 +5,6 @@
 	&nbsp;
 <a href="https://travis-ci.org/arviteri/Footing"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=master" alt="Travis-CI"></a>
 	&nbsp;
-[![node](https://img.shields.io/node/v/passport.svg)](https://github.com/arviteri/Footing)	
 
 **!! Things have changed recently! The README is currently being updated !!** 
 
@@ -34,7 +33,7 @@ Footings's purpose is to enable developers to create REST APIs without needing t
 ## Setup Requirements
   - MongoDB database (used for sessions).
   - MySQL database (used for application data).
-  - Node.Js
+  - Node.Js v8.11.1 -- Tests are not currently working for Node 11
 
 <br />
 
