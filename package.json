@@ -27,7 +27,7 @@
     "uid-generator": "^1.0.0"
   },
   "engines": {
-    "node": "8.11.1"
+    "node": "^8.11.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

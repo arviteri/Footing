@@ -189,8 +189,7 @@ describe('LOGIN ROUTE', () => {
                                     .set('Cookie', session_cookie)
                                     .send(login_data);
         
-        const cookies = response.headers['set-cookie'][0].split(","); // Need to split cookies string to access them seperatley due to Supertest.      
-        
+        const cookies = response.headers['set-cookie']; // Need to split cookies string to access them seperatley due to Supertest.      
         /* Set data to make authorized requests in following tests. */
         session_cookie = cookies[1];
         auth_cookie = cookies[0];
@@ -232,7 +231,7 @@ describe('DELETE USER ROUTE', () => {
     // Test with auth token as cookie only (not provided in header)
     test('Delete user with auth token as cookie only - POST '.concat(config.routes.deleteAccount), async () => {
         const response = await request.post(config.routes.deleteAccount)
-                                    .set('Cookie', session_cookie+";"+auth_cookie)
+                                    .set('Cookie', [session_cookie, auth_cookie])
                                     .send(request_body);
                                     
         assert.equal(response.statusCode, 401, 'request should be unauthorized.');
@@ -251,7 +250,7 @@ describe('DELETE USER ROUTE', () => {
     // Test successful user delete
     test('Delete user with valid data - POST '.concat(config.routes.deleteAccount), async () => {
         const response = await request.post(config.routes.deleteAccount)
-                                    .set('Cookie', session_cookie+";"+auth_cookie) // Use both cookies
+                                    .set('Cookie', [session_cookie, auth_cookie]) // Use both cookies
                                     .set('Authorization', 'Bearer ' + auth_token)
                                     .send(request_body);
 
@@ -261,7 +260,7 @@ describe('DELETE USER ROUTE', () => {
     // Test validity of auth token after user has been deleted.
     test('Delete user with credentials of recently deleted user - POST '.concat(config.routes.deleteAccount), async () => {
         const response = await request.post(config.routes.deleteAccount)
-                                    .set('Cookie', session_cookie+";"+auth_cookie) // Use both cookies (both should be invalid)
+                                    .set('Cookie', [session_cookie, auth_cookie]) // Use both cookies (both should be invalid)
                                     .set('Authorization', 'Bearer ' + auth_token)
                                     .send(request_body);
 
@@ -276,7 +275,7 @@ describe('DELETE USER ROUTE', () => {
         request_body._csrf = csrfResponse.body._csrf; // Reset the CSRF token to the new, valid one.
 
         const response = await request.post(config.routes.deleteAccount)
-                                    .set('Cookie', session_cookie+";"+auth_cookie) // Use both cookies
+                                    .set('Cookie', [session_cookie, auth_cookie]) // Use both cookies
                                     .set('Authorization', 'Bearer ' + auth_token)
                                     .send(request_body);
         assert.equal(response.statusCode, 401, 'request should be unauthorized.');
