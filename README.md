@@ -1,8 +1,11 @@
 
 <img height="75" src="https://i.ibb.co/WH9x7hN/logo.png">
-<p>
-	<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-</p>
+
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+	&nbsp;
+<a href="https://travis-ci.org/arviteri/Footing"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=master" alt="Travis-CI"></a>
+	&nbsp;
+[![node](https://img.shields.io/node/v/passport.svg)](https://github.com/arviteri/Footing)	
 
 **!! Things have changed recently! The README is currently being updated !!** 
 
