@@ -24,17 +24,17 @@ const bodyParserConfig = { extended: true };
 const CSRFProtection = require('../routes/middleware/csrf.js')(config);
 const session_config = config.configurations.expressSession.config;
 
-var whitelist = ['http://localhost:3030', 'http://localhost:3000']
+var whitelist = [];
 var corsOptions = {
-	origin: 'http://localhost:3000',
+	origin: '',
 	allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept', 'Cookie', 'Origin', "credentials"],
  	methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
   	credentials: true
 }
 
-app.use(cors(corsOptions));
-app.options(cors(corsOptions));
-app.post(cors(corsOptions));
+//app.use(cors(corsOptions));
+//app.options(cors(corsOptions));
+//app.post(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
