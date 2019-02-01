@@ -4,6 +4,10 @@
 	<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
 </p>
 
+**!! Things have changed recently! The README is currently being updated !!** 
+
+<br />
+
 Footing is a foundation for developing REST APIs with Express and Node.Js. The project is designed in a way to make it easy for developers to build secure REST APIs with minimal setup. Footing provides the ability to define public or secure API routes with or without CSRF protection. 
 
 Routes for signing up and logging in users are already defined. Session management and authentication management have been implemented as well. 
