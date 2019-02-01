@@ -1,5 +1,4 @@
 
-(https://i.ibb.co/WH9x7hN/logo.png =250x)
 
 <img height="75" src="https://i.ibb.co/WH9x7hN/logo.png">
 
