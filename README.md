@@ -33,7 +33,7 @@ Footings's purpose is to enable developers to create REST APIs without needing t
 ## Setup Requirements
   - MongoDB database (used for sessions).
   - MySQL database (used for application data).
-  - Node.Js v8.11.1 -- Tests are not currently working for Node 11
+  - Node.Js
 
 <br />
 
