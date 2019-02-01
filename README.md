@@ -1,8 +1,10 @@
 
 <img height="75" src="https://i.ibb.co/WH9x7hN/logo.png">
-<p>
-	<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-</p>
+
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+	&nbsp;
+<a href="https://travis-ci.org/arviteri/Footing"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=master" alt="Travis-CI"></a>
+	&nbsp;
 
 **!! Things have changed recently! The README is currently being updated !!** 
 
@@ -31,7 +33,7 @@ Footings's purpose is to enable developers to create REST APIs without needing t
 ## Setup Requirements
   - MongoDB database (used for sessions).
   - MySQL database (used for application data).
-  - Node.Js
+  - Node.Js v8.11.1 -- Tests are not currently working for Node 11
 
 <br />
 
