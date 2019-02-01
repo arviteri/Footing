@@ -9,6 +9,12 @@
 module.exports = function(){
 
 	///////////////////////////////////////////////
+	///////      SERVER  VARIABLES         ///////
+	/////////////////////////////////////////////
+
+	this.ConsoleLogging = true;
+
+	///////////////////////////////////////////////
 	///////      SERVER  FUNCTIONS         ///////
 	/////////////////////////////////////////////
 
@@ -29,11 +35,17 @@ module.exports = function(){
 		return timestamp;
 	}
 
+	this.SetConsoleLogging = function(val) {
+		this.ConsoleLogging = val;
+	}
+
 	this.ServerLog = function (ip, header, message, suspicious) {
-		const now = TimeStamp();
-		const attention = suspicious ? " ATTENTION #":"";
-		const log = "> "+now+"#"+attention+"IP::"+ip+"$"+header+": "+message+";";	
-		console.log(log);
+		if (ConsoleLogging) {
+			const now = TimeStamp();
+			const attention = suspicious ? " ATTENTION #":"";
+			const log = "> "+now+"#"+attention+"IP::"+ip+"$"+header+": "+message+";";	
+			console.log(log);
+		}
 	}
 
 }

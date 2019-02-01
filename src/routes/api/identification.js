@@ -12,7 +12,9 @@ module.exports = function(config, app, routes) {
 
  	const signupHandler = require('../../controllers/signup.js')(config);
  	const loginHandler = require('../../controllers/login.js')(config);
+ 	const deleteUHandler = require('../../controllers/deactivate.js')(config);
  	const authHandler = require('../../controllers/auth.js')(config);
+ 	const RequestAuthenticator = require('../middleware/auth.js')(config);
 
 	///////////////////////////////////////////////
 	////       IDENTIFICATION  ROUTES         ////
@@ -21,7 +23,7 @@ module.exports = function(config, app, routes) {
 	/**
 	 * Generate CSRF token for making requests.
 	 */
-	routes.protected.get('/c/tkn', function(req, res) {
+	routes.protected.get(config.routes.csrf, function(req, res) {
 		const token = req.csrfToken();
 	 	const resObj = {
 	 		_csrf: token
@@ -33,11 +35,11 @@ module.exports = function(config, app, routes) {
 	 * Signup
 	 * View 'src/controllers/signup.js' for signup implementation.
 	 */
-	routes.protected.post('/signup', function(req, res) {
+	routes.protected.post(config.routes.signup, function(req, res) {
 		
 		signupHandler.Signup(req).then(function(result) {
 
-			return res.status(200).json(new JSONResponse(200, "success"));
+			return res.status(200).json(new JSONResponse(200, "OK"));
 		}, function(err) {
 			const statusCode = err.statusCode ? err.statusCode : 400;
 			return res.status(statusCode).json(err);
@@ -49,7 +51,7 @@ module.exports = function(config, app, routes) {
 	 * Login
 	 * View 'src/controllers/login.js' for login implementation.
 	 */
-	routes.protected.post('/login', function(req, res) {
+	routes.protected.post(config.routes.login, function(req, res) {
 
 		const ip = req.ip; // IP of computer requesting server. Used for logging.
 
@@ -81,4 +83,18 @@ module.exports = function(config, app, routes) {
 
 	});
 
+	/**
+	 * Delete User Account
+	 * View 'src/controllers/deactivate.js' for implementation.
+	 */
+	routes.protected.post(config.routes.deleteAccount, RequestAuthenticator, function(req, res) {
+
+		deleteUHandler.DeleteAccount(req).then(function(result) {
+			req.session.destroy(); // Incredibly important.
+			return res.status(200).json(new JSONResponse(200, "OK"));
+		}, function(err) {
+			const statusCode = err.statusCode ? err.statusCode : 400;
+			return res.status(statusCode).json(err);
+		});
+	});
 }
