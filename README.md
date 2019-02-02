@@ -110,7 +110,7 @@ Environment variables included are...
 - __MONGO_URL__ - The URL of the MongoDB database used for sessions.
 - __BCRYPT_SALT_ROUNDS__ - Salt rounds for Bcrypt to hash passwords. 
 - __JWT_SECRET__ - Secret for authentication token (not used, see `note` above).
-- __SESSION_SECRET __ - Secret for Express sessions. 
+- __SESSION_SECRET__ - Secret for Express sessions. 
 
 <br/>
 <a id="defaultroutes"/>
