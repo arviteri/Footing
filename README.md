@@ -129,9 +129,9 @@ The routes that have already been defined are for...
 
 The routes above are defined in the `src/config/routes.js` file. They are implemented in the `src/routes/api/identification.js` file and the `src/routes/api/health.js` file. 
 
-__To change the routes, it is recommended that they are changed in the `src/config/routes.js` file and not in the implementation file This is recommended because the integration tests rely on the `src/config/routes.js` file to test the correct routes.__
+__To change the default route endpoints, it is recommended that they are changed in the `src/config/routes.js` file and not in the implementation file. This is recommended because the integration tests rely on the `src/config/routes.js` file to test the correct routes.__
 
-__Changing the routes in the `src/config/routes.js` file will ensure that the integration tests will still work correctly.__
+__Changing the route endpoints in the `src/config/routes.js` file will ensure that the integration tests will still work correctly.__
 
 <br/>
 <a id="defroutes"/>
