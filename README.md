@@ -140,7 +140,7 @@ __Changing the routes in the `src/config/routes.js` file will ensure that the in
 
 Footing is designed to allow developers to define public or private routes that include or do not include CSRF protection.
 
-__Public routes__ can be defined in the `src/routes/api/public.js` file.
+__Public routes__ can be defined in the `src/routes/api/public.js` file.  
 __Private routes__ can be defined in the `src/routes/api/private.js` file and use the predefined `RequestAuthenticator` middleware.
 
 __Unprotected routes__ (routes that __do not include__ CSRF protection) are used by the router variables `routes.unprotected`.
