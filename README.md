@@ -3,8 +3,8 @@
 <img src="https://i.ibb.co/qRjRw2g/logo-f.png" height=100>
 </p>
 <p align="center">
-<img alt="Travis-CI" src="https://travis-ci.org/arviteri/Footing.svg?branch=master">&nbsp;&nbsp;&nbsp;
-<img alt="License:MIT" src="https://img.shields.io/badge/License-MIT-blue.svg">
+	<a href="https://travis-ci.org/arviteri/Footing" alt="Travis-CI"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=master"></a>&nbsp;&nbsp;&nbsp;
+	<a href="" alt="License:MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
 Footing is a foundation for developing REST APIs with Express and Node.js. The project is designed in a way to make it easy for developers to build secure REST APIs with minimal setup. Footing provides the ability to define public or private routes with or without CSRF protection. 
