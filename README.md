@@ -65,8 +65,8 @@ Footing __does  not  include__...
 # Requirements
 
 Requirements for developing REST APIs with Footing include...
-- MySQL database.
-- MongoDB database.
+- MySQL database (used for application data).
+- MongoDB database (used for managing sessions).
 - Node.js ( >= v8.11.1, it's recommended to be used with v10.15.1)
 
 __Disclaimer:__ Integration tests have been tested for Node.js >= v10.15.1. The project was originally developed using Node.js v8.11.1; however, the integration tests will fail on v8.11.1 due to the version of npm package `supertest` that v8.11.1 uses. That specific version of `supertest` has an issue making requests and receiving responses that include more than one cookie. 
@@ -127,7 +127,7 @@ The routes that have already been defined are for...
 - Testing routes that don't include CSRF protection that require authentication - `/test/auth`.
 - Testing routes that include CSRF protection and require authentication - `/test/auth_csrf`.
 
-The routes above are defined in the `src/config/routes.js` file. They are implemented in the `src/routes/api/identification.js` file. 
+The routes above are defined in the `src/config/routes.js` file. They are implemented in the `src/routes/api/identification.js` file and the `src/routes/api/health.js` file. 
 
 __To change the routes, it is recommended that they are changed in the `src/config/routes.js` file and not in the implementation file This is recommended because the integration tests rely on the `src/config/routes.js` file to test the correct routes.__
 
