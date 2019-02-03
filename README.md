@@ -24,9 +24,7 @@ Footing's purpose is to enable developers to create REST APIs without needing to
 	- #### [Defining New Routes](#defroutes)
 	- #### [Making Requests](#makerequests)
 	-  #### [Adding XSS Protection](#xss)
-- ### [Developer](#develop) - Coming Soon
-	- #### [Project Directory]()
-	- #### [Testing]()
+- ### [Developer](https://github.com/arviteri/Footing/blob/master/docs/DEVELOPER.md)
 
 <a id="included"/>
 
@@ -235,4 +233,4 @@ It is recommended to implement a middleware function that sanitizes all input da
 
 # Developer
 
-Coming soon. 
+The developer doc can be found in `/docs`.
