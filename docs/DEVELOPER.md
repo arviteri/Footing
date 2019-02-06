@@ -11,10 +11,10 @@
 	- ### [Models](#mdls)
 	- ### [Routes](#rtes)
 	- ### [Middleware](#mid)
-- ### [Testing](#test) - Coming Soon
-	- ### [Creating New Route Tests](#newtests)
-	- ### [API Routes](#apirtes)
-	- ### [Main Application](#mainapptest)
+- ### [Testing](#test)
+	- ### [Main Application Test](#mainapptest)
+	- ### [Predefined Route Tests](#apirtes)
+	- ### [Creating Tests For New Routes](#newtests) - Coming Soon
 
 <a id="dir"/>
 
@@ -217,4 +217,43 @@ routes.protected.post('/endpoint', RequestAuthenticator, (req, res) => {
 <a id="test"/>
 
 # Testing
+
+Footing uses `jest` for testing, alongside the following dependencies...
+- `supertest`
+- `chai`
+
+To test the application, run `npm test`. 
+
+The tests included with Footing test the following predefined routes...
+- `/status`
+-  `/c/tkn`
+- `/signup`
+- `/login`
+- `/delete_account`
+
+<a id="mainapptest"/>
+
+### Main Application Test
+
+The main application test file, `test/app/app.test.js` tests the database connections only. 
+
+<br />
+<a id="apirtes"/>
+
+### Predefined Route Tests
+
+Testing public routes and testing private routes follow two different processes. The public routes require no more than database connections. Testing private routes require a user account, an authentication token, and a CSRF token. The tests defined in the `test/api/identification.test.js` file test routes in the following order...
+- `/c/tkn` - Route to obtain CSRF token
+- `/signup` 
+- `/login`
+- `/delete_account`
+
+These private route tests were implemented in this order to remove the need for developers to register a user account with the API in order to test successfully.  The tests create a new user, authenticate the new user, and delete it. The tests include various situations for each route. Please see the `test/api/identification.test.js` file for more information on the situations that are tested. 
+
+
+<br />
+<a id="newtests"/>
+
+### Creating Tests For New Routes
+
 Coming soon.
