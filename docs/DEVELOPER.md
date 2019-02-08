@@ -14,7 +14,6 @@
 - ### [Testing](#test)
 	- ### [Main Application Test](#mainapptest)
 	- ### [Predefined Route Tests](#apirtes)
-	- ### [Creating Tests For New Routes](#newtests) - Coming Soon
 
 <a id="dir"/>
 
@@ -251,9 +250,3 @@ Testing public routes and testing private routes follow two different processes.
 These private route tests were implemented in this order to remove the need for developers to register a user account with the API in order to test successfully.  The tests create a new user, authenticate the new user, and delete it. The tests include various situations for each route. Please see the `test/api/identification.test.js` file for more information on the situations that are tested. 
 
 
-<br />
-<a id="newtests"/>
-
-### Creating Tests For New Routes
-
-Coming soon.
