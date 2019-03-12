@@ -8,16 +8,16 @@
 
 module.exports = function(){
 
-	///////////////////////////////////////////////
-	///////      SERVER  VARIABLES         ///////
-	/////////////////////////////////////////////
+	
+	/*
+	 * Server variables below.
+	 */
+	this.ConsoleLoggingOn = true;
 
-	this.ConsoleLogging = true;
-
-	///////////////////////////////////////////////
-	///////      SERVER  FUNCTIONS         ///////
-	/////////////////////////////////////////////
-
+	
+	/*
+	 * Server functions below.
+	 */
 	this.TimeStamp = function() {
 		
 		let now = new Date();
@@ -35,12 +35,14 @@ module.exports = function(){
 		return timestamp;
 	}
 
+
 	this.SetConsoleLogging = function(val) {
-		this.ConsoleLogging = val;
+		this.ConsoleLoggingOn = val;
 	}
 
+
 	this.ServerLog = function (ip, header, message, suspicious) {
-		if (ConsoleLogging) {
+		if (ConsoleLoggingOn) {
 			const now = TimeStamp();
 			const attention = suspicious ? " ATTENTION #":"";
 			const log = "> "+now+"#"+attention+"IP::"+ip+"$"+header+": "+message+";";	
