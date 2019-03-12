@@ -7,9 +7,14 @@
  */
 
 
-// Configure environment variables.
+// Configure environment.
 const ENV_PATH = './.env';
 require('dotenv').config({path: ENV_PATH});
+
+
+/* API ROUTES */
+const ROUTES = require('./routes.js');
+
 
 /* Dependencies. */
 const bcrypt = require('bcrypt');
@@ -62,8 +67,6 @@ const session_config = {
 	resave: false
 };
 
-/* API ROUTES */
-const ROUTES = require('./routes.js');
 
 module.exports = {
 	configurations: {
