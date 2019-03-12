@@ -12,7 +12,7 @@ module.exports = function(config, app, routes) {
 
  	const signupHandler = require('../../controllers/signup.js')(config);
  	const loginHandler = require('../../controllers/login.js')(config);
- 	const deleteUHandler = require('../../controllers/deactivate.js')(config);
+ 	const deleteUHandler = require('../../controllers/delete_account.js')(config);
  	const authHandler = require('../../controllers/auth.js')(config);
  	const RequestAuthenticator = require('../middleware/auth.js')(config);
 
