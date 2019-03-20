@@ -1,10 +1,10 @@
 {
   "name": "footing",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A foundation for developing APIs with Express and Node.js",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node src/main.js",
     "test": "jest"
   },
   "author": "Andrew Viteri",
@@ -22,7 +22,6 @@
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
-    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "uid-generator": "^1.0.0"
   },

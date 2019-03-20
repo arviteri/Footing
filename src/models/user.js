@@ -1,19 +1,14 @@
-/**
- * FOOTING.
- * Namespace: src/models
- * January 13, 2019
- * LICENSE: MIT
- * Andrew Viteri
+/*
+ * User Model
  */
 
 class User {
-
 	constructor(email, password) {
 		this.id;
 		this.email = email;
 		this.password = password;
 	}
-
+	
 	getId() {
 		return this.id;
 	}
@@ -40,7 +35,6 @@ class User {
 		this.password = password;
 		return;
 	}
-
 }
 
 module.exports = User;
