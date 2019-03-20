@@ -3,7 +3,7 @@
 <img src="https://i.ibb.co/qRjRw2g/logo-f.png" height=100>
 </p>
 <p align="center">
-	<a href="https://travis-ci.org/arviteri/Footing" alt="Travis-CI"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=master"></a>&nbsp;&nbsp;&nbsp;
+	<a href="https://travis-ci.org/arviteri/Footing" alt="Travis-CI"><img src="https://travis-ci.org/arviteri/Footing.svg?branch=refactor"></a>&nbsp;&nbsp;&nbsp;
 	<a href="https://opensource.org/licenses/MIT" alt="License:MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
