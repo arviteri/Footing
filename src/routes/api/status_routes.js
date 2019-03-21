@@ -2,11 +2,7 @@
  * API Status Routes
  */
 
-const AuthHandler = require('../../handlers/auth_handler.js');
-
-module.exports = function(app, config, routes) {
-
-	const RequestAuthenticator = require('../middleware/auth_middleware.js')(new AuthHandler(config));
+module.exports = function(app, config, routes, RequestAuthenticator) {
 
 	/* Public test route - w/o CSURF */
 	routes.unprotected.get('/status', function(req, res) {

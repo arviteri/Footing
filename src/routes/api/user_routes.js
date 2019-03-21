@@ -16,11 +16,10 @@ const handle_error = (err, code, res) => {
 	}
 }
 
-module.exports = (app, config, routes) => {
+module.exports = (app, config, routes, RequestAuthenticator) => {
 
 	const userController = new UserController(config);
 	const authHandler = new AuthHandler(config);
-	const RequestAuthenticator = require('../middleware/auth_middleware.js')(authHandler);
 
 	/**
 	 * Return CSRF Token.
