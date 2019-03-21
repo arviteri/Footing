@@ -7,11 +7,11 @@
 	<a href="https://opensource.org/licenses/MIT" alt="License:MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
-Footing is a foundation for developing REST APIs with Express and Node.js. The project is designed in a way to make it easy for developers to build secure REST APIs with minimal setup. Footing provides the ability to define public or private routes with or without CSRF protection. 
+Footing is a foundation for developing APIs with Node.js and Express. The project is designed in a way to make it easy for developers to build secure APIs with minimal setup. Footing provides the ability to define public or private routes with or without CSRF protection. 
 
 Routes that are predefined and come with Footing include ones that allow registering users, authenticating users, and deleting users. Routes for testing CSRF and authentication functionality are also included. 
 
-Footing's purpose is to enable developers to create REST APIs without needing to implement an authentication system. 
+Footing's purpose is to enable developers to create APIs without needing to implement an authentication system. 
 
 # Index
 - ### [What's Included?](#included) 
@@ -35,9 +35,6 @@ Footing includes...
 - An authentication system.
 - CSRF protection (provided by npm package `csurf`).
 - SQL Injection protection (__for predefined routes only__).
-- Two designated files for defining public and private routes,
-	- `src/routes/api/public.js`
-	- `src/routes/api/private.js`.
 - Integration tests for predefined routes.
 
 ### The Authentication System
@@ -67,7 +64,7 @@ Requirements for developing REST APIs with Footing include...
 - MongoDB database (used for managing sessions).
 - Node.js ( >= v8.11.1, it's recommended to be used with v10.15.1)
 
-__Disclaimer:__ Integration tests have been tested for Node.js >= v10.15.1. The project was originally developed using Node.js v8.11.1; however, the integration tests will fail on v8.11.1 due to the version of npm package `supertest` that v8.11.1 uses. That specific version of `supertest` has an issue making requests and receiving responses that include more than one cookie. 
+__Disclaimer:__ Integration tests have been tested for Node.js  v10.15.3. The project was originally developed using Node.js v8.11.1; however, the integration tests will fail on v8.11.1 due to the version of npm package `supertest` that v8.11.1 uses. That specific version of `supertest` has an issue making requests and receiving responses that include more than one cookie. 
 
 <a id="setup"/>
 
@@ -95,19 +92,17 @@ To configure environment variables, duplicate the `.env.dist` file and rename it
 - Deciding on salt rounds for hashing passwords.
 - Deciding on a secret for session data. 
 
-__Note:__ The `JWT_SECRET` environment variable is not used. It is there because it was previously used, and was not removed in case developers want to change the authentication system. Currently, Footing uses unique id secrets for each individual authentication token (JWT), and not a static secret. In this project, JWT is used to represent an authentication token, and not for all if its functional purposes. 
 
 Environment variables included are...
 - __PORT__ - Port the application will be served on.
-- __SQL_HOST__ - Host for MySQL connection. 
-- __SQL_PORT__ - Port for MySQL connection. The default is 3306.  
-- __SQL_USER__ - User for MySQL connection. 
-- __SQL_PASS__ - Password for MySQL connection.
-- __SQL_DATABASE__ - Database name for MySQL database.
-- __SQL_USERS_TABLE__ - The name of the table that stores user entities in the MySQL database.
-- __MONGO_URL__ - The URL of the MongoDB database used for sessions.
+- __MySQL_HOST__ - Host for MySQL connection. 
+- __MySQL_PORT__ - Port for MySQL connection. The default is 3306.  
+- __MySQL_USER__ - User for MySQL connection. 
+- __MySQL_PWD__ - Password for MySQL connection.
+- __MySQL_DB__ - Database name for MySQL database.
+- __MySQL_USERS_TBL__ - The name of the table that stores user entities in the MySQL database.
+- __MongoDB_URI__ - The URI of the MongoDB database used for sessions.
 - __BCRYPT_SALT_ROUNDS__ - Salt rounds for Bcrypt to hash passwords. 
-- __JWT_SECRET__ - Secret for authentication token (not used, see `note` above).
 - __SESSION_SECRET__ - Secret for Express sessions. 
 
 <br/>
@@ -136,18 +131,27 @@ __Changing the route endpoints in the `src/config/routes.js` file will ensure th
 
 ### Defining New Routes
 
-Footing is designed to allow developers to define public or private routes that include or do not include CSRF protection.
+To define new routes, create a new routing file in the `src/routes/api/` directory. Footing has been designed to 	automatically `require` all files in that directory. _The file should be set up as so..._
+```
+/**
+ * Your routing file
+ */
 
-__Public routes__ can be defined in the `src/routes/api/public.js` file.  
-__Private routes__ can be defined in the `src/routes/api/private.js` file and use the predefined `RequestAuthenticator` middleware.
+module.exports = function(app, config, routes, RequestAuthenticator) {
+	// Define routes here.
+}
+```
+
+Each routing file is automatically passed the app, config and routes variables, and includes a RequestAuthenticator as well. This way, all routing files can access any global application variables. The RequestAuthenticator can be used as middleware to protect any routes from unauthenticated users.
+
+<br />
 
 __Unprotected routes__ (routes that __do not include__ CSRF protection) are used by the router variables `routes.unprotected`.
 __Protected routes__ (routes that __include__ CSRF protection) are used by the router variables `routes.protected`.
 
 <br/>
 
-__Example of defining a new PUBLIC route _without_ CSRF protection__ in the `src/routes/api/public.js`  file:
-
+__Example of defining a new PUBLIC route _without_ CSRF protection.__
 ~~~
 routes.unprotected.post('/public_without_CSRF', function(res, req) {
     return res.status(200).json({"200":"Unathenticated"});
@@ -155,7 +159,7 @@ routes.unprotected.post('/public_without_CSRF', function(res, req) {
 ~~~
 <br />
 
-__Example of defining a new PUBLIC route _with_ CSRF protection__ in the `src/routes/api/public.js`  file:
+__Example of defining a new PUBLIC route _with_ CSRF protection__
 ~~~
 routes.protected.post('/public_with_CSRF', function(res, req) {
 		return res.status(200).json({"200":"Unathenticated"});
@@ -163,7 +167,7 @@ routes.protected.post('/public_with_CSRF', function(res, req) {
 ~~~
 <br />
 
-__Example of defining a new PRIVATE route _without_ CSRF protection__ in the `src/routes/api/private.js`  file:
+__Example of defining a new PRIVATE route _without_ CSRF protection__
 ~~~
 routes.unprotected.post('/auth_without_CSRF', RequestAuthethenticator, function(res, req) {
     return res.status(200).json({"200":"Authenticated"});
@@ -171,7 +175,7 @@ routes.unprotected.post('/auth_without_CSRF', RequestAuthethenticator, function(
 ~~~
 <br />
 
-__Example of defining a new PRIVATE route _with_ CSRF protection__ in the `src/routes/api/private.js`  file:
+__Example of defining a new PRIVATE route _with_ CSRF protection__ 
 ~~~
 routes.protected.post('/auth_with_CSRF', RequestAuthethenticator, function(res, req) {
     return res.status(200).json({"200":"Authenticated"});
@@ -224,7 +228,7 @@ HEADER: Authorization - Bearer {jwtAuthTokenValueHere}
 <a id="xss"/>
 
 ### Adding XSS Protection
-Due to the amount of npm packages that offer data sanitization, and the lack of regulation/validity that is available for such packages, Footing does not offer XSS protection/data sanitization functions. However, comments are available in suggested locations for sanitizing input data. These comments are located in the `src/controllers/signup.js` and `src/controllers/login.js` files. 
+Due to the amount of npm packages that offer data sanitization, and the lack of regulation/validity that is available for such packages, Footing does not offer XSS protection/data sanitization functions. However, comments are available in suggested locations for sanitizing input data. These comments are located in the `src/controllers/user_controller.js` file.
 
 It is recommended to implement a middleware function that sanitizes all input data for all requests. 
 

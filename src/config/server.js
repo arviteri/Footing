@@ -1,25 +1,22 @@
 /**
- * FOOTING.
- * Namespace: src/config
- * January 14, 2019
- * LICENSE: MIT
- * Andrew Viteri
+ * Server
+ *
+ * This file serves for global functions and variables.
  */
 
-module.exports = function(){
-
-	///////////////////////////////////////////////
-	///////      SERVER  VARIABLES         ///////
-	/////////////////////////////////////////////
-
-	this.ConsoleLogging = true;
-
-	///////////////////////////////////////////////
-	///////      SERVER  FUNCTIONS         ///////
-	/////////////////////////////////////////////
+module.exports = function() {
+	/* Server variables. */
+	this.ConsoleLogginOn = true;
+	
+	/* Server functions. */
+	this.ServerLog = function(ip, header, message, suspicious) {
+		if (this.ConsoleLoggingOn) {
+			const attention_message = suspicious ? 'ATTENTION #' : '';
+			console.log('>', TimeStamp()+'#'+'IP::'+ip+'$'+header+':', message+';');
+		}
+	};
 
 	this.TimeStamp = function() {
-		
 		let now = new Date();
 		let currentDate = {
 			year: now.getFullYear(),
@@ -36,18 +33,6 @@ module.exports = function(){
 	}
 
 	this.SetConsoleLogging = function(val) {
-		this.ConsoleLogging = val;
-	}
-
-	this.ServerLog = function (ip, header, message, suspicious) {
-		if (ConsoleLogging) {
-			const now = TimeStamp();
-			const attention = suspicious ? " ATTENTION #":"";
-			const log = "> "+now+"#"+attention+"IP::"+ip+"$"+header+": "+message+";";	
-			console.log(log);
-		}
-	}
-
+		this.ConsoleLoggingOn = val;
+	};
 }
-
-

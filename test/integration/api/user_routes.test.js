@@ -1,21 +1,16 @@
 /**
- * FOOTING.
- * Namespace: test/api
- * January 29, 2019
- * LICENSE: MIT
- * Andrew Viteri
+ * User Route Tests.
  */
 
-const assert = require('chai').assert
-const config = require('../../src/config/config.js');
-const app = require('../../src/config/app.js');
+const assert = require('chai').assert;
+const config = require('../../../src/config/config.js');
+const app = require('../../../src/config/app.js');
 const request = require('supertest')(app);
 
-
 // Create database variables for testing.
-const mongoURL = config.configurations.connectMongo.url;
+const mongoURI = config.dep_preferences.MongoDB.uri;
 const mongoose = config.dependencies.mongoose;
-const sqlDB = config.databases.sql;
+const sqlDB = config.databases.application;
 
 var session_cookie; // Used to save session to make further requests.
 var auth_cookie; // Used to save auth cookie to make further requests.
@@ -32,7 +27,7 @@ const test_credentials = {
 beforeAll(() => {
     SetConsoleLogging(false); // Function from src/config/server.js
 	sqlDB.connect();
-	mongoose.connect(mongoURL, {useNewUrlParser: true});
+	mongoose.connect(mongoURI, {useNewUrlParser: true});
 });
 
 
@@ -51,7 +46,7 @@ describe('SIGNUP ROUTE', () => {
     const signup_data = {
         email: undefined,
         password: undefined,
-        confirmPassword: undefined,
+        conf_password: undefined,
         _csrf: undefined
     };
 
@@ -93,7 +88,7 @@ describe('SIGNUP ROUTE', () => {
     });
 
     test('Signup with incorrect confirm password field - POST '.concat(config.routes.signup), async () => {
-        signup_data.confirmPassword = 'different_password'; // Add incorrect confirm password field to signup data.
+        signup_data.conf_password = 'different_password'; // Add incorrect confirm password field to signup data.
         const response = await request.post(config.routes.signup)
                                     .set('Cookie', session_cookie)
                                     .send(signup_data);
@@ -104,7 +99,7 @@ describe('SIGNUP ROUTE', () => {
 
     // Test w/ valid data.
     test('Signup with valid data - POST '.concat(config.routes.signup), async () => {
-        signup_data.confirmPassword = test_credentials.password; // Add correct confirm password to signup data.
+        signup_data.conf_password = test_credentials.password; // Add correct confirm password to signup data.
     	const response = await request.post(config.routes.signup)
                                     .set('Cookie', session_cookie)
                                     .send(signup_data);
@@ -118,7 +113,7 @@ describe('SIGNUP ROUTE', () => {
                                     .set('Cookie', session_cookie)
                                     .send(signup_data);
 
-        assert.equal(response.statusCode, 409, 'email should already be registered');
+        assert.equal(response.statusCode, 422, 'email should already be registered');
     });
 
 });
@@ -148,7 +143,7 @@ describe('LOGIN ROUTE', () => {
                                     .set('Cookie', session_cookie)
                                     .send(login_data);
 
-        assert.equal(response.statusCode, 422, 'should be unauthorized');
+        assert.equal(response.statusCode, 401, 'should be unauthorized');
     });
 
     // Test with missing password.
@@ -158,7 +153,7 @@ describe('LOGIN ROUTE', () => {
                                     .set('Cookie', session_cookie)
                                     .send(login_data);
 
-        assert.equal(response.statusCode, 422, 'should be unauthorized');
+        assert.equal(response.statusCode, 401, 'should be unauthorized');
     });
 
     // Test with incorrect password.
@@ -168,7 +163,7 @@ describe('LOGIN ROUTE', () => {
                                     .set('Cookie', session_cookie)
                                     .send(login_data);
 
-        assert.equal(response.statusCode, 422, 'should be unauthorized');
+        assert.equal(response.statusCode, 401, 'should be unauthorized');
     });
 
     // Test with email that isn't registered.
@@ -178,7 +173,7 @@ describe('LOGIN ROUTE', () => {
                                     .set('Cookie', session_cookie)
                                     .send(login_data);
 
-        assert.equal(response.statusCode, 409, 'email should not be registered');
+        assert.equal(response.statusCode, 401, 'email should not be registered');
     });
 
     // Test with valid data.
@@ -210,8 +205,8 @@ describe('DELETE USER ROUTE', () => {
 
 
     // Test missing CSRF token
-    test('Delete user without CSRF token - POST '.concat(config.routes.deleteAccount), async () => {
-        const response = await request.post(config.routes.deleteAccount)
+    test('Delete user without CSRF token - POST '.concat(config.routes.delete_account), async () => {
+        const response = await request.post(config.routes.delete_account)
                                     .set('Cookie', session_cookie)
                                     .send(request_body);
 
@@ -219,9 +214,9 @@ describe('DELETE USER ROUTE', () => {
     });
 
     // Test without auth token.
-    test('Delete user with missing auth token - POST '.concat(config.routes.deleteAccount), async () => {
+    test('Delete user with missing auth token - POST '.concat(config.routes.delete_account), async () => {
         request_body._csrf = csrf_token; // Add CSRF token to request.
-        const response = await request.post(config.routes.deleteAccount)
+        const response = await request.post(config.routes.delete_account)
                                     .set('Cookie', session_cookie)
                                     .send(request_body);
 
@@ -229,8 +224,8 @@ describe('DELETE USER ROUTE', () => {
     });
 
     // Test with auth token as cookie only (not provided in header)
-    test('Delete user with auth token as cookie only - POST '.concat(config.routes.deleteAccount), async () => {
-        const response = await request.post(config.routes.deleteAccount)
+    test('Delete user with auth token as cookie only - POST '.concat(config.routes.delete_account), async () => {
+        const response = await request.post(config.routes.delete_account)
                                     .set('Cookie', [session_cookie, auth_cookie])
                                     .send(request_body);
                                     
@@ -238,8 +233,8 @@ describe('DELETE USER ROUTE', () => {
     });
 
     // Test with auth token as header only (not saved as cookie)
-    test('Delete user with auth token in header only - POST '.concat(config.routes.deleteAccount), async () => {
-        const response = await request.post(config.routes.deleteAccount)
+    test('Delete user with auth token in header only - POST '.concat(config.routes.delete_account), async () => {
+        const response = await request.post(config.routes.delete_account)
                                     .set('Cookie', session_cookie)
                                     .set('Authorization', 'Bearer ' + auth_token)
                                     .send(request_body);
@@ -248,8 +243,8 @@ describe('DELETE USER ROUTE', () => {
     });
 
     // Test successful user delete
-    test('Delete user with valid data - POST '.concat(config.routes.deleteAccount), async () => {
-        const response = await request.post(config.routes.deleteAccount)
+    test('Delete user with valid data - POST '.concat(config.routes.delete_account), async () => {
+        const response = await request.post(config.routes.delete_account)
                                     .set('Cookie', [session_cookie, auth_cookie]) // Use both cookies
                                     .set('Authorization', 'Bearer ' + auth_token)
                                     .send(request_body);
@@ -258,8 +253,8 @@ describe('DELETE USER ROUTE', () => {
     });
 
     // Test validity of auth token after user has been deleted.
-    test('Delete user with credentials of recently deleted user - POST '.concat(config.routes.deleteAccount), async () => {
-        const response = await request.post(config.routes.deleteAccount)
+    test('Delete user with credentials of recently deleted user - POST '.concat(config.routes.delete_account), async () => {
+        const response = await request.post(config.routes.delete_account)
                                     .set('Cookie', [session_cookie, auth_cookie]) // Use both cookies (both should be invalid)
                                     .set('Authorization', 'Bearer ' + auth_token)
                                     .send(request_body);
@@ -268,13 +263,13 @@ describe('DELETE USER ROUTE', () => {
     });
 
     // Test validity of auth token after user has been deleted and new CSRF token obtained.
-    test('Delete user with invalid credentials and new CSRF - POST '.concat(config.routes.deleteAccount), async () => {
+    test('Delete user with invalid credentials and new CSRF - POST '.concat(config.routes.delete_account), async () => {
         /* Obtain a new CSRF since session was deleted in previous test. */
         const csrfResponse = await request.get(config.routes.csrf).expect('set-cookie', /connect.sid/);
         session_cookie = csrfResponse.headers['set-cookie'];
         request_body._csrf = csrfResponse.body._csrf; // Reset the CSRF token to the new, valid one.
 
-        const response = await request.post(config.routes.deleteAccount)
+        const response = await request.post(config.routes.delete_account)
                                     .set('Cookie', [session_cookie, auth_cookie]) // Use both cookies
                                     .set('Authorization', 'Bearer ' + auth_token)
                                     .send(request_body);
@@ -296,4 +291,3 @@ afterAll(() => {
 	mongoose.disconnect();
     SetConsoleLogging(true);
 });
-
