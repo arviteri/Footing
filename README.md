@@ -7,13 +7,15 @@
 	<a href="https://opensource.org/licenses/MIT" alt="License:MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
+__UPDATE:__ Don't want to use MySQL for application data? Use MongoDB! Switch to the `feature/mongodb-app` branch to use a version that allows storing application data (i.e user data) to MongoDB.
+
+<br />
+
 Footing is a foundation for developing APIs with Node.js and Express. The project is designed in a way to make it easy for developers to build secure APIs with minimal setup. Footing provides the ability to define public or private routes with or without CSRF protection. 
 
 Routes that are predefined and come with Footing include ones that allow registering users, authenticating users, and deleting users. Routes for testing CSRF and authentication functionality are also included. 
 
 Footing's purpose is to enable developers to create APIs without needing to implement an authentication system.
-
-__UPDATE:__ Don't want to use MySQL for application data? Use MongoDB! Switch to the `feature/mongodb-app` branch to use a version that allows storing application data (i.e user data) to MongoDB.
 
 # Index
 - ### [What's Included?](#included) 
