@@ -121,7 +121,7 @@ describe('SIGNUP ROUTE', () => {
                                     .set('Cookie', session_cookie)
                                     .send(signup_data);
 
-        assert.equal(response.statusCode, 422, 'email should already be registered');
+        assert.equal(response.statusCode, 422, "email should already be registered - Make sure you've set a UNIQUE INDEX on the email property in the users collection of your MongoDB");
     });
 
 });
