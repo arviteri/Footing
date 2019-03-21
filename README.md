@@ -11,7 +11,9 @@ Footing is a foundation for developing APIs with Node.js and Express. The projec
 
 Routes that are predefined and come with Footing include ones that allow registering users, authenticating users, and deleting users. Routes for testing CSRF and authentication functionality are also included. 
 
-Footing's purpose is to enable developers to create APIs without needing to implement an authentication system. 
+Footing's purpose is to enable developers to create APIs without needing to implement an authentication system.
+
+__UPDATE:__ Don't want to use MySQL for application data? Use MongoDB! Switch to the `feature/mongodb-app` branch to use a version that allows storing application data (i.e user data) to MongoDB.
 
 # Index
 - ### [What's Included?](#included) 
