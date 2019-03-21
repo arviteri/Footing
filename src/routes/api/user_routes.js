@@ -71,9 +71,9 @@ module.exports = (app, config, routes) => {
 	/**
 	 * Delete User.
 	 */
-	routes.protected.post(config.routes.delete_account, function(req, res) {
+	routes.protected.post(config.routes.delete_account, RequestAuthenticator, function(req, res) {
 		userController.DeleteUser(req.session.user_id).then(() => {
-			req.session.destory();
+			req.session.destroy();
 			return res.status(200).json({200: "OK"});
 		}).catch((err) => handle_error(err, 401, res));
 	});

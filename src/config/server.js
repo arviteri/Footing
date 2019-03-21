@@ -32,7 +32,7 @@ module.exports = function() {
 		return timestamp;
 	}
 
-	this.ToggleConsoleLogging = function() {
-		this.ConsoleLoggingOn = !this.ConsoleLoggingOn;
+	this.SetConsoleLogging = function(val) {
+		this.ConsoleLoggingOn = val;
 	};
 }
