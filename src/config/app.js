@@ -21,7 +21,7 @@ var routes = {
 routes.protected.use(CSRF_middleware);
 app.use(routes.unprotected);
 app.use(routes.protected);
-require('../routes/api/health_routes.js')(app, config, routes);
+require('../routes/api/status_routes.js')(app, config, routes);
 require('../routes/api/user_routes.js')(app, config, routes);
 
 module.exports = app;
