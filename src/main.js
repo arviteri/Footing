@@ -10,7 +10,11 @@ console.log('Running', config.app.name+'@'+config.app.version);
 console.log('Port:', config.server.port);
 
 /* Create application db users index. */
-config.databases.application.collection(config.dep_preferences.MongoDB.users_collection).createIndex({
+let users_collection = _config2.dep_preferences.MongoDB.users_collection;
+if (!users_collection) {
+	users_collection = "users";
+}
+config.databases.application.collection(users_collection).createIndex({
 	email: 1
 }, {
 	unique: true
