@@ -8,6 +8,7 @@
 	- ### [File Hierarchy](#fhier)
 	- ### [Making Configurations](#config)
 	- ### [Controllers](#cntrlrs)
+	- ### [Handlers](#hndlers)
 	- ### [Models](#mdls)
 	- ### [Routes](#rtes)
 	- ### [Middleware](#mid)
@@ -37,9 +38,9 @@ The files below are listed in order from 'most critical' to 'least critical.' 'M
 
 <br />
 
-__Main Application File__ - The index of the application (`src/app.js`). 
+__Main Application File__ - The index of the application (`src/main.js`). 
 
-The `src/app.js` file is the file that runs the application and allows the server to listen for incoming HTTP requests. This file is where database connections are initialized and tested before the server starts. This file uses the Express application variable, `app` to call `app.listen` but it is __not__ where the Express application variable is defined. It merely `require`s it from _the secondary application file._ Please see __The secondary Application File__ below for more information. 
+The `src/main.js` file is the file that runs the application and allows the server to listen for incoming HTTP requests. This file is where database connections are initialized and tested before the server starts. This file uses the Express application variable, `app` to call `app.listen` but it is __not__ where the Express application variable is defined. It merely `require`s it from _the secondary application file._ Please see __The secondary Application File__ below for more information. 
 
 <br />
 
@@ -61,9 +62,7 @@ __The Secondary Application File__ - AKA the `app.use` file (`src/config/app.js`
 The secondary application file is designated for defining the Express application variable, and allowing it to use dependencies. This file holds all of the `app.use` function calls. In this file you can find...
 - All `app.use` statements. 
 - The Router configuration (one router for routes with CSRF protection and one for routes without).
-- Initialization of routes (route `require` statements).
-
-__NOTE:__ If a new file is made for implementing routes, __it must be `require`d by the secondary application file__ and must be passed the `routers` variable, or the routes will not work. Please see the secondary application file for an example.  
+- Initialization of routes (route `require` statements). 
 
 The secondary app file exports the Express application variable. The only file that `require`s this file is _the main application file_. The main application file uses the exported Express variable to serve the application and listen for incoming HTTP requests. 
 
@@ -116,34 +115,27 @@ Configurations to the dependencies that are used in this project can be made in 
  <br />
  <a id="cntrlrs"/>
 
-
 ### Controllers
 
-__The Signup Controller__ - `src/controllers/signup.js` -The signup controllers manages signing up users and storing them in the MySQL database. 
+__The User Controller__ The user controllers is defined in `src/controllers/user_controller.js`. This file is where all functionality is defined for creating, logging in, and deleting users. 
 
-<br/>
+<br />
+<a id="hndlers"/>
 
-__The Login Controller__ `src/controllers/login.js` - The login controller manages authenticating user credentials. This controller does not return an authentication token. The user entity that owns the email and password provided is passed to the __authentication controller__ to authorize a new session and return an authentication token to the user. 
+### Handlers
 
-<br/>
+__The Authentication Handler__ The authentication handler is defined in the `src/handlers/auth_handler.js` file. This file is where all authentication and authorization functionality is defined. An instance of the AuthHandler class is used to create new RequestAuthenticator middleware instances. 
 
-__The Authentication Controller__ `src/controllers/auth.js` - The authentication controller manage authenticated sessions, and authorizes private requests. After a request to login is successful, it gets passed to this controller to authorize the session and return an authentication token to the user. When a computer requests information from a private route, (one that uses the `src/routes/api/auth.js` middleware) the request is passed through a function in this controller to authenticate the validity of the request. 
+The above does not serve as an explanation for how the authentication system works. For more information on how the authentication system work, please see __Whats Included?__ in the README.md file. 
 
-The above does not serve as a comprehensive explanation for how the authentication system works. For more information on how the authentication system work, please see __Whats Included?__ in the README.md file. 
-
-<br/>
-
-__The Deactivate Controller__ - `src/controllers/deactivate.js` - The deactivate controller manages deleting users from the database. The requests to delete users from the database first need to pass the authentication controller. After a successful request to delete the user's account, the user data will no longer be present in the MySQL database, and the user's session will be destroyed (thus invalidating the user's CSRF token and authentication token). 
-
-<br/>
+<br />
 <a id="mdls"/>
-
 
 ### Models
 
 Models defined in footing make use of ES6 classes. 
 
-__JSON RESPONSE__ - `src/models/JSONResponse.js` The JSON Response model serves to represent a response with a status code and message only. This model is used by the predefined routes to send a response back to the computer requesting data. 
+__ERRORS__ - Two main error classes are used to differentiate errors between the client and the server. These two classes are the `ClientError` and `SystemError` classes. They are defined in the `src/models/errors.js` file, and are simply wrappers for the default `Error` class.
 
 __USER__ - `src/models/user.js` - The User model serves to represent a user object. The a User object is used by the __signup controller__ and the __login controller__ to manage handling user data. 
 
@@ -189,28 +181,14 @@ __IMPORTANT:__ If a new file is made for implementing  routes, __it must be `req
 ### Middleware
 
 Footing includes two middleware functions..
-- Middleware for CSRF protection - `src/routes/middleware/csrf.js`.
-- Middleware for authenticating requests - `src/routes/middleware/auth.js`.
+- Middleware for CSRF protection - `src/routes/middleware/csrf_middleware.js`.
+- Middleware for authenticating requests - `src/routes/middleware/auth_middleware.js`.
 
 The middleware files can be found in the `src/routes/middleware/` directory.
 
 __CSRF Middleware__ - The CSRF protection middleware uses a function from the npm package `csurf` to protect routes that use this middleware. The `protected` router uses this middleware by default. The `unprotected` router does not use this middleware. For more information on the two router definitions, please look at __the secondary application file__ (`src/config/app.js`).
 
-__Authentication Middleware__ - The authentication middleware uses the authentication controller to verify credentials for private routes. This middleware is not used by either router by default. It is necessary to include this middleware in routes that need to require authentication. Please see the below code for an example of implementation. An example can also be found in the `src/routes/api/private.js` file.
-
-```
-// Namespace - /src/routes/api
-
-const RequestAuthenticator = require('../middleware/auth.js');
-
-
-routes.protected.post('/endpoint', RequestAuthenticator, (req, res) => {
-	
-	// Code block
-	
-});
-
-```
+__Authentication Middleware__ - The authentication middleware uses the authentication handler to verify credentials for private routes. This middleware is not used by either router by default. It is necessary to include this middleware in routes that need to require authentication. Please see the below code for an example of implementation. An example can also be found in the `src/routes/api/status_routes.js` file.
 
 <br/>
 <a id="test"/>
@@ -234,19 +212,18 @@ The tests included with Footing test the following predefined routes...
 
 ### Main Application Test
 
-The main application test file, `test/app/app.test.js` tests the database connections only. 
+The main application test file, `test/integration/main.test.js` tests the database connections only. 
 
 <br />
 <a id="apirtes"/>
 
 ### Predefined Route Tests
 
-Testing public routes and testing private routes follow two different processes. The public routes require no more than database connections. Testing private routes require a user account, an authentication token, and a CSRF token. The tests defined in the `test/api/identification.test.js` file test routes in the following order...
+Testing public routes and testing private routes follow two different processes. The public routes require no more than database connections. Testing private routes require a user account, an authentication token, and a CSRF token. The tests defined in the `test/integration/api/user_controller.test.js` file test routes in the following order...
 - `/c/tkn` - Route to obtain CSRF token
 - `/signup` 
 - `/login`
 - `/delete_account`
 
-These private route tests were implemented in this order to remove the need for developers to register a user account with the API in order to test successfully.  The tests create a new user, authenticate the new user, and delete it. The tests include various situations for each route. Please see the `test/api/identification.test.js` file for more information on the situations that are tested. 
-
+These private route tests were implemented in this order to remove the need for developers to register a user account with the API in order to test successfully.  The tests create a new user, authenticate the new user, and delete it. The tests include various situations for each route. Please see the `test/integration/api.test.js` file for more information on the situations that are tested. 
 

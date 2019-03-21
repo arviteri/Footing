@@ -60,6 +60,7 @@ const verifyLoginData = (email, password) => {
 	if (!password) {
 		throw new ClientError("No password provided.");
 	}
+	// May want to add data sanitization here.
 }
 
 
@@ -116,6 +117,7 @@ const verifySignupData = (email, password, conf_password) => {
 	if (conf_password !== password) {
 		throw new ClientError("Passwords do not match.");
 	}
+	// May want to add data sanitization here.
 }
 
 const encryptPassword = function(password) {
