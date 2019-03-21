@@ -15,6 +15,7 @@ app.use(config.dependencies.express_session(
 ));
 
 const AuthHandler = require('../handlers/auth_handler.js');
+const RequestAuthenticator = require('../routes/middleware/auth_middleware.js')(new AuthHandler(config));
 const CSRF_middleware = require('../routes/middleware/csrf_middleware.js')(config);
 var routes = {
 	unprotected: config.dependencies.express.Router(),
@@ -25,7 +26,6 @@ app.use(routes.unprotected);
 app.use(routes.protected);
 fs.readdirSync('./src/routes/api/').forEach((file) => {
 	const file_dir = '../routes/api/'+file;
-	const RequestAuthenticator = require('../routes/middleware/auth_middleware.js')(new AuthHandler(config));
 	require(file_dir)(app, config, routes, RequestAuthenticator);
 });
 
