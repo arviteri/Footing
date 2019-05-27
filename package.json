@@ -1,40 +1,15 @@
 {
-  "name": "footing",
-  "version": "1.1.0",
-  "description": "A foundation for developing APIs with Node.js and Express",
-  "main": "src/app.js",
+  "name": "footing_cli",
+  "version": "1.0.0",
+  "description": "CLI for creating projects with Footing.",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/main.js",
-    "test": "jest"
+    "test": "test"
   },
   "author": "Andrew Viteri",
   "license": "MIT",
-  "dependencies": {
-    "bcrypt": "^3.0.1",
-    "body-parser": "^1.18.3",
-    "connect-mongo": "^2.0.1",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.4",
-    "csrf": "^3.0.6",
-    "csurf": "^1.9.0",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.3.4",
-    "mysql": "^2.16.0",
-    "uid-generator": "^1.0.0"
+  "bin": {
+    "footing": "./index.js"
   },
-  "engines": {
-    "node": "10.15.3"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "jest": "^24.0.0",
-    "superagent": "^4.1.0",
-    "supertest": "^3.4.2"
-  },
-  "jest": {
-    "testEnvironment": "node"
-  }
+  "dependencies": {}
 }
