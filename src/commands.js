@@ -15,10 +15,10 @@ module.exports = function(_dir, projType, projName) {
 			"installModules": `cd ${projName} && npm install`
 		},
 		"windows": {
-			"createDirs": `mkdir ${projName} ${projName}\\src ${projName}\\src\\config ${projName}\\src\\controllers ${projName}\\src\\handlers ${projName}\\src\\models ${projName}\\src\\routes ${projName}\\src\\routes\\api ${projName}\\src\\routes\\middleware`,
+			"createDirs": `mkdir ${projName} ${projName}\\test ${projName}\\test\\integration ${projName}\\test\\integration\\api ${projName}\\src ${projName}\\src\\config ${projName}\\src\\controllers ${projName}\\src\\handlers ${projName}\\src\\models ${projName}\\src\\routes ${projName}\\src\\routes\\api ${projName}\\src\\routes\\middleware`,
 			"cpPackageJSON": `copy ${_dir}\\lib\\package.json ${projName}\\package.json`,
 			"cpEnvFile": `copy ${_dir}\\lib\\env.${projType}.dist ${projName}\\.env`,
-			"cpTests": `xcopy ${_dir}\\lib\\test.${projType} ${projName}\\test`,
+			"cpTests": `copy ${_dir}\\lib\\test.${projType}\\integration\\main.test.js ${projName}\\test\\integration\\main.test.js && copy ${_dir}\\lib\\test.${projType}\\integration\\api\\user_routes.test.js ${projName}\\test\\integration\\api\\user_routes.test.js`,
 			"cpMainFile": `copy ${_dir}\\lib\\main.${projType}.js ${projName}\\src\\main.js`,
 			"cpConfigFiles": `copy ${_dir}\\lib\\config\\app.js ${projName}\\src\\config\\app.js && copy ${_dir}\\lib\\config\\routes.js ${projName}\\src\\config\\routes.js && copy ${_dir}\\lib\\config\\server.js ${projName}\\src\\config\\server.js && copy ${_dir}\\lib\\config\\config.${projType}.js ${projName}\\src\\config\\config.js`,
 			"cpControllers": `copy ${_dir}\\lib\\controllers\\user_controller.${projType}.js ${projName}\\src\\controllers\\user_controller.js`,
