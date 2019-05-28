@@ -24,7 +24,7 @@ function createProject() {
 			}
 			console.log("Creating project files...");
 			for (i in bashCmds) {
-				if (i != "installModules" && i != "createDirs") {
+				if (i != "createDirs") {
 					exec(bashCmds[i], function (err, stdout, sterr) {
 						if (err) {
 							console.log(err);
@@ -33,15 +33,6 @@ function createProject() {
 					})
 				}
 			}
-
-			console.log("Installing node modules...");
-			exec(bashCmds["installModules"], function(err, stdout, sterr) {
-				if (err) {
-					console.log(err);
-					process.exit(1);
-				}
-				resolve();
-			});
 		});
 	});
 }
@@ -65,7 +56,7 @@ function executeCmd(cmd, args) {
 			bashCmds = isWin ? bashCmds['windows'] : bashCmds['unix'];
 			console.log(`Creating project: ${projName}`);
 			createProject(projType, projName).then(function() {
-				console.log("Done.");
+				console.log("Done. Remember to run `npm install` inside the project directory to install the node modules.");
 			});
 		}
 	} else {

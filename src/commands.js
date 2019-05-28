@@ -11,8 +11,7 @@ module.exports = function(_dir, projType, projName) {
 			"cpControllers": `cp ${_dir}/lib/controllers/user_controller.${projType}.js ${projName}/src/controllers/user_controller.js`,
 			"cpHandlers": `cp ${_dir}/lib/handlers/auth_handler.js ${projName}/src/handlers/auth_handler.js`,
 			"cpModels": `cp ${_dir}/lib/models/errors.js ${projName}/src/models/errors.js && cp ${_dir}/lib/models/user.js ${projName}/src/models/user.js`,
-			"cpRoutes": `cp ${_dir}/lib/routes/api/status_routes.js ${projName}/src/routes/api/status_routes.js && cp ${_dir}/lib/routes/api/user_routes.js ${projName}/src/routes/api/user_routes.js && cp ${_dir}/lib/routes/middleware/auth_middleware.js ${projName}/src/routes/middleware/auth_middleware.js && cp ${_dir}/lib/routes/middleware/csrf_middleware.js ${projName}/src/routes/middleware/csrf_middleware.js`,
-			"installModules": `cd ${projName} && npm install`
+			"cpRoutes": `cp ${_dir}/lib/routes/api/status_routes.js ${projName}/src/routes/api/status_routes.js && cp ${_dir}/lib/routes/api/user_routes.js ${projName}/src/routes/api/user_routes.js && cp ${_dir}/lib/routes/middleware/auth_middleware.js ${projName}/src/routes/middleware/auth_middleware.js && cp ${_dir}/lib/routes/middleware/csrf_middleware.js ${projName}/src/routes/middleware/csrf_middleware.js`
 		},
 		"windows": {
 			"createDirs": `mkdir ${projName} ${projName}\\test ${projName}\\test\\integration ${projName}\\test\\integration\\api ${projName}\\src ${projName}\\src\\config ${projName}\\src\\controllers ${projName}\\src\\handlers ${projName}\\src\\models ${projName}\\src\\routes ${projName}\\src\\routes\\api ${projName}\\src\\routes\\middleware`,
@@ -24,8 +23,7 @@ module.exports = function(_dir, projType, projName) {
 			"cpControllers": `copy ${_dir}\\lib\\controllers\\user_controller.${projType}.js ${projName}\\src\\controllers\\user_controller.js`,
 			"cpHandlers": `copy ${_dir}\\lib\\handlers\\auth_handler.js ${projName}\\src\\handlers\\auth_handler.js`,
 			"cpModels": `copy ${_dir}\\lib\\models\\errors.js ${projName}\\src\\models\\errors.js && copy ${_dir}\\lib\\models\\user.js ${projName}\\src\\models\\user.js`,
-			"cpRoutes": `copy ${_dir}\\lib\\routes\\api\\status_routes.js ${projName}\\src\\routes\\api\\status_routes.js && copy ${_dir}\\lib\\routes\\api\\user_routes.js ${projName}\\src\\routes\\api\\user_routes.js && copy ${_dir}\\lib\\routes\\middleware\\auth_middleware.js ${projName}\\src\\routes\\middleware\\auth_middleware.js && copy ${_dir}\\lib\\routes\\middleware\\csrf_middleware.js ${projName}\\src\\routes\\middleware\\csrf_middleware.js`,
-			"installModules": `cd ${projName} && npm install`
+			"cpRoutes": `copy ${_dir}\\lib\\routes\\api\\status_routes.js ${projName}\\src\\routes\\api\\status_routes.js && copy ${_dir}\\lib\\routes\\api\\user_routes.js ${projName}\\src\\routes\\api\\user_routes.js && copy ${_dir}\\lib\\routes\\middleware\\auth_middleware.js ${projName}\\src\\routes\\middleware\\auth_middleware.js && copy ${_dir}\\lib\\routes\\middleware\\csrf_middleware.js ${projName}\\src\\routes\\middleware\\csrf_middleware.js`
 		}
 	}
 }
