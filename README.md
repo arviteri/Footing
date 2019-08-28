@@ -7,7 +7,7 @@
 	<a href="https://opensource.org/licenses/MIT" alt="License:MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
-__UPDATE:__ A version of Footing which is designed for storing application data using MongoDB has been created. It can be found in the `feature/mongodb-app` branch. The default version stores application data with MySQL. A command line interface to create Footing projects is currently in the works. It can be found on the `cli` branch. After it is complete the repo will merge to revolve around the command line interface. 
+__UPDATE:__ A version of Footing which is designed for storing application data using MongoDB has been created. It can be found in the `feature/mongodb-app` branch. The default version stores application data with MySQL. A command line interface to create Footing projects is currently in the works. It can be found on the `cli` branch.
 
 <br />
 
