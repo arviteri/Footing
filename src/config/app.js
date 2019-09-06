@@ -35,7 +35,7 @@ const requireApiRoutes = function(folder) {
 			requireApiRoutes(dir);
 		} else {
 			dir = dir.replace('./src/', '../');
-			require(dir)(app, config, routes);
+			require(dir)(app, config, routes); // If you're receiving an error, make sure all API routing files are constructed properly.
 		}
 	});
 }
