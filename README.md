@@ -150,10 +150,14 @@ To require requests to be authenticated, the route receiving the request will ne
 /**
  * Your routing file
  */
+ 
 const AuthHandler = require('../../handlers/auth_handler.js');
 const RequestAuthenticator = require('../middleware/auth_middleware.js');
+
 module.exports = function(app, config, routes) {
+	
 	const requestAuthenticator = RequestAuthenticator(new AuthHandler(config));
+	
 	// Define routes here.
 	routes.protected.post('/example', requestAuthenticator, function(res, req) {
 		/* ... */
