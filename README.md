@@ -141,12 +141,37 @@ To define new routes, create a new routing file in the `src/routes/api/` directo
  * Your routing file
  */
 
-module.exports = function(app, config, routes, RequestAuthenticator) {
+module.exports = function(app, config, routes) {
 	// Define routes here.
 }
 ```
 
-Each routing file is automatically passed the app, config and routes variables, and includes a RequestAuthenticator as well. This way, all routing files can access any global application variables. The RequestAuthenticator can be used as middleware to protect any routes from unauthenticated users.
+Each routing file is automatically passed the app, config and routes variables. This way, all routing files can access any global application variables.
+
+<br />
+
+To require requests to be authenticated, the route receiving the request will need to use the RequestAuthenticator function found in `src/routes/middleware/auth_middleware.js` as middleware. This function requires an instance of the AuthHandler class found in the `src/handlers/auth_handler.js` to be passed to it. _See the example below._
+
+<br />
+
+```
+/**
+ * Your routing file
+ */
+
+const AuthHandler = require('../../handlers/auth_handler.js');
+const RequestAuthenticator = require('../middleware/auth_middleware.js');
+
+module.exports = function(app, config, routes) {
+
+	const requestAuthenticator = RequestAuthenticator(new AuthHandler(config));
+
+	// Define routes here.
+	routes.protected.post('/example', requestAuthenticator, function(res, req) {
+		/* ... */
+	});
+}
+```
 
 <br />
 
@@ -173,7 +198,7 @@ routes.protected.post('/public_with_CSRF', function(res, req) {
 
 __Example of defining a new PRIVATE route _without_ CSRF protection__
 ~~~
-routes.unprotected.post('/auth_without_CSRF', RequestAuthethenticator, function(res, req) {
+routes.unprotected.post('/auth_without_CSRF', requestAuthethenticator, function(res, req) {
     return res.status(200).json({"200":"Authenticated"});
 });
 ~~~
@@ -181,7 +206,7 @@ routes.unprotected.post('/auth_without_CSRF', RequestAuthethenticator, function(
 
 __Example of defining a new PRIVATE route _with_ CSRF protection__ 
 ~~~
-routes.protected.post('/auth_with_CSRF', RequestAuthethenticator, function(res, req) {
+routes.protected.post('/auth_with_CSRF', requestAuthethenticator, function(res, req) {
     return res.status(200).json({"200":"Authenticated"});
 });
 ~~~
