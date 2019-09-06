@@ -1,3 +1,9 @@
+# CHANGELOG for 1.2
+
+- Remove default feature which passed RequestAuthenticator to automatically required routing files.
+- Enhance functionality which automatically requires routing files to recursively read the src/routes/api directory.
+	- Allows for folders to be created in the src/routes/api directory whose contents are required automatically.
+
 # CHANGELOG for 1.1
 
 - Move all signup, login, delete_account functionality to UserController, `src/controllers/user_controller.js`
