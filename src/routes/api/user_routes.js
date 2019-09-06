@@ -4,6 +4,7 @@
 
 const UserController = require('../../controllers/user_controller.js');
 const AuthHandler = require('../../handlers/auth_handler.js');
+const RequestAuthenticator = require('../middleware/auth_middleware.js');
 const {ClientError, SystemError} = require('../../models/errors.js');
 
 const handle_error = (err, code, res) => {
@@ -16,10 +17,11 @@ const handle_error = (err, code, res) => {
 	}
 }
 
-module.exports = (app, config, routes, RequestAuthenticator) => {
+module.exports = (app, config, routes) => {
 
 	const userController = new UserController(config);
 	const authHandler = new AuthHandler(config);
+	const requestAuthenticator = RequestAuthenticator(authHandler);
 
 	/**
 	 * Return CSRF Token.
@@ -70,7 +72,7 @@ module.exports = (app, config, routes, RequestAuthenticator) => {
 	/**
 	 * Delete User.
 	 */
-	routes.protected.post(config.routes.delete_account, RequestAuthenticator, function(req, res) {
+	routes.protected.post(config.routes.delete_account, requestAuthenticator, function(req, res) {
 		userController.DeleteUser(req.session.user_id).then(() => {
 			req.session.destroy();
 			return res.status(200).json({200: "OK"});

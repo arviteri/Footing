@@ -14,8 +14,6 @@ app.use(config.dependencies.express_session(
 	config.dep_preferences.express_session.config
 ));
 
-const AuthHandler = require('../handlers/auth_handler.js');
-const RequestAuthenticator = require('../routes/middleware/auth_middleware.js')(new AuthHandler(config));
 const CSRF_middleware = require('../routes/middleware/csrf_middleware.js')(config);
 var routes = {
 	unprotected: config.dependencies.express.Router(),
@@ -24,9 +22,24 @@ var routes = {
 routes.protected.use(CSRF_middleware);
 app.use(routes.unprotected);
 app.use(routes.protected);
-fs.readdirSync('./src/routes/api/').forEach((file) => {
-	const file_dir = '../routes/api/'+file;
-	require(file_dir)(app, config, routes, RequestAuthenticator);
-});
+
+/**
+ * Recursively reads directory and requires
+ * all files while passing in the app, config
+ * and routes variable.
+ */
+const requireApiRoutes = function(folder) {
+	fs.readdirSync(folder).forEach((file) => {
+		let dir = folder + '/' + file;
+		if (fs.lstatSync(dir).isDirectory()) {
+			requireApiRoutes(dir);
+		} else {
+			dir = dir.replace('./src/', '../');
+			require(dir)(app, config, routes); // If you're receiving an error, make sure all API routing files are constructed properly.
+		}
+	});
+}
+requireApiRoutes('./src/routes/api');
+
 
 module.exports = app;
