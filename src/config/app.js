@@ -22,9 +22,24 @@ var routes = {
 routes.protected.use(CSRF_middleware);
 app.use(routes.unprotected);
 app.use(routes.protected);
-fs.readdirSync('./src/routes/api/').forEach((file) => {
-	const file_dir = '../routes/api/'+file;
-	require(file_dir)(app, config, routes);
-});
+
+/**
+ * Recursively reads directory and requires
+ * all files while passing in the app, config
+ * and routes variable.
+ */
+const requireApiRoutes = function(folder) {
+	fs.readdirSync(folder).forEach((file) => {
+		let dir = folder + '/' + file;
+		if (fs.lstatSync(dir).isDirectory()) {
+			requireApiRoutes(dir);
+		} else {
+			dir = dir.replace('./src/', '../');
+			require(dir)(app, config, routes);
+		}
+	});
+}
+requireApiRoutes('./src/routes/api');
+
 
 module.exports = app;
