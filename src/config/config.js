@@ -28,14 +28,10 @@ for (i in package_json['dependencies']) {
 
 /* Setup databases. */
 _exports.databases = {
-	application: _exports.dependencies.mysql.createConnection({
-		host: process.env.MySQL_HOST,
-		port: process.env.MySQL_PORT,
-		database: process.env.MySQL_DB,
-		user: process.env.MySQL_USER,
-		password: process.env.MySQL_PWD
+	application: _exports.dependencies.mongoose.createConnection(process.env.MongoDB_URI_APP, {
+		useNewUrlParser: true
 	}),
-	session: _exports.dependencies.mongoose.createConnection(process.env.MongoDB_URI, {
+	session: _exports.dependencies.mongoose.createConnection(process.env.MongoDB_URI_SESS, {
 		useNewUrlParser: true
 	})
 };
@@ -60,11 +56,10 @@ _exports.dep_preferences = {
 			resave: false
 		}
 	},
-	MySQL: {
-		user_table: process.env.MySQL_USER_TBL
-	},
 	MongoDB: {
-		uri: process.env.MongoDB_URI
+		app_uri: process.env.MongoDB_URI_APP,
+		sess_uri: process.env.MongoDB_URI_SESS,
+		users_collection: process.env.MongoDB_USERS_COLLECTION
 	}
 };
 

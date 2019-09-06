@@ -9,22 +9,28 @@ const app = require('./config/app.js');
 console.log('Running', config.app.name+'@'+config.app.version);
 console.log('Port:', config.server.port);
 
-// Connect to application database. (MySQL)
-config.databases.application.connect((err) => {
-	if (err) {
-		console.log('ERROR (MySQL):', err);
-		return process.exit(1);
-	}
-	console.log('MySQL connection established.');
+/* Create application db users index. */
+config.databases.application.collection(config.dep_preferences.MongoDB.users_collection).createIndex({
+	email: 1
+}, {
+	unique: true
 });
 
-
 /**
- * Handle session database (Mongo) connection events.
+ * Handle database (Mongo) connection events.
  * The Mongo connection is created in the config.js file. 
  */
+config.databases.application.on('connected', () => {
+	console.log('MongoDB - Application DB connection established.');
+});
+
 config.databases.session.on('connected', () => {
-	console.log('MongoDB connection established.');
+	console.log('MongoDB - Session DB connection established.');
+});
+
+config.databases.application.on('error', () => {
+	// Mongoose will log the error.
+	return process.exit(1);
 });
 
 config.databases.session.on('error', () => {

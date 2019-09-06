@@ -8,7 +8,8 @@ const app = require('../../../src/config/app.js');
 const request = require('supertest')(app);
 
 // Create database variables for testing.
-const mongoURI = config.dep_preferences.MongoDB.uri;
+const mongoURI_APP = config.dep_preferences.MongoDB.app_uri;
+const mongoURI_SESS = config.dep_preferences.MongoDB.sess_uri;
 const mongoose = config.dependencies.mongoose;
 const sqlDB = config.databases.application;
 
@@ -26,8 +27,15 @@ const test_credentials = {
 
 beforeAll(() => {
     SetConsoleLogging(false); // Function from src/config/server.js
-	sqlDB.connect();
-	mongoose.connect(mongoURI, {useNewUrlParser: true});
+    mongoose.createConnection(mongoURI_APP, {useNewUrlParser: true});
+	mongoose.createConnection(mongoURI_SESS, {useNewUrlParser: true});
+
+    /* Create application db users index. */
+    config.databases.application.collection(config.dep_preferences.MongoDB.users_collection).createIndex({
+        email: 1
+    }, {
+        unique: true
+    });
 });
 
 
@@ -280,8 +288,7 @@ describe('DELETE USER ROUTE', () => {
 
 
 afterAll(() => {
-	sqlDB.end();
-    mongoose.connection.db.collection("sessions", (err, collection) => {
+    config.databases.session.collection("sessions", (err, collection) => {
         if (err) {
             process.exit(1);
         } else {

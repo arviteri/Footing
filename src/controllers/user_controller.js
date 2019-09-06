@@ -2,6 +2,7 @@
  * User Controller
  */
 
+const ObjectId = require('mongoose').Types.ObjectId;
 const {ClientError, SystemError} = require('../models/errors.js');
 const User = require('../models/user.js');
 
@@ -81,21 +82,19 @@ const verifyPassword = function(pass_input, hash) {
 
 const getUserFromDB = function(email) {
 	return new Promise(function(resolve, reject) {
-		let user_table = _config2.dep_preferences.MySQL.user_table
-		if (!user_table) {
-			user_table = "Users";
+		let users_collection = _config2.dep_preferences.MongoDB.users_collection;
+		if (!users_collection) {
+			users_collection = "users";
 		}
-		const _query = "SELECT id, email, password FROM "+user_table+" WHERE email = ?";
-		_config2.databases.application.query(_query, [email], (err, rows, fields) => {
+		_config2.databases.application.collection(users_collection).findOne({email: email}, (err, result) => {
 			if (err) {
-				reject(new SystemError("MySQL error."));
-			}
-			if (rows[0]) {
-				const user = new User(rows[0].email, rows[0].password);
-				user.id = rows[0].id;
-				resolve(user);
+				reject(new SystemError("MongoDB error on findOne."));
+			} else if (!result) {
+				reject(new ClientError("Email is not registered."))
 			} else {
-				reject(new ClientError("Email is not registered."));
+				const user = new User(result.email, result.password);
+				user.id = result._id;
+				resolve(user);
 			}
 		});
 	});
@@ -140,17 +139,13 @@ const encryptPassword = function(password) {
 
 const persistUserToDB = function(user) {
 	return new Promise(function(resolve, reject) {
-		let user_table = _config2.dep_preferences.MySQL.user_table
-		if (!user_table) {
-			user_table = "Users";
+		let users_collection = _config2.dep_preferences.MongoDB.users_collection;
+		if (!users_collection) {
+			users_collection = "users";
 		}
-		const _query = "INSERT INTO "+user_table+" (email, password) VALUES (?, ?)";
-		_config2.databases.application.query(_query, [user.email, user.password], (err, rows, fields) => {
+		_config2.databases.application.collection(users_collection).insertOne(user, (err) => {
 			if (err) {
-				if (err.code === "ER_DUP_ENTRY") {
-					reject(new ClientError("Email is already registered"));
-				}
-				reject(new SystemError("MySQL error while persisting user to DB."));
+				reject(new ClientError("Email is already registered."));
 			}
 			resolve(user);
 		});
@@ -159,14 +154,15 @@ const persistUserToDB = function(user) {
 
 const removeUserFromDB = function(id) {
 	return new Promise(function(resolve, reject) {
-		let user_table = _config2.dep_preferences.MySQL.user_table
-		if (!user_table) {
-			user_table = "Users";
+		let users_collection = _config2.dep_preferences.MongoDB.users_collection;
+		if (!users_collection) {
+			users_collection = "users";
 		}
-		const _query = "DELETE FROM "+user_table+" WHERE id = ?";
-		_config2.databases.application.query(_query, [id], (err, rows, fields) => {
+		_config2.databases.application.collection(users_collection).deleteOne({
+			_id: ObjectId(id.toString())
+		}, (err) => {
 			if (err) {
-				reject(new SystemError("MySQL error while deleting user from DB."));
+				reject(new SystemError("Error deleting user from DB."));
 			}
 			resolve(true);
 		});

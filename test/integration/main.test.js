@@ -6,14 +6,16 @@ const config = require('../../src/config/config.js');
 const app = require('../../src/config/app.js');
 
 describe("TEST DATABASES", () => {
-	test('MySQL database', () => {
-		config.databases.application.connect((err) => {
+	test('Application database', () => {
+		const uri = config.dep_preferences.MongoDB.app_uri;
+		console.log(uri);
+		config.dependencies.mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
 			expect(err).toBeFalsy();
 		});
 	});
 
 	test('MongoDB', () => {
-		const uri = config.dep_preferences.MongoDB.uri;
+		const uri = config.dep_preferences.MongoDB.sess_uri;
 		console.log(uri);
 		config.dependencies.mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
 			expect(err).toBeFalsy();
@@ -22,6 +24,5 @@ describe("TEST DATABASES", () => {
 });
 
 afterAll(() => {
-	config.databases.application.end();
 	config.dependencies.mongoose.disconnect();
 })
